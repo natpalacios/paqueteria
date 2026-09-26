@@ -1,0 +1,229 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+.contenedor {
+    width: 95%;
+    max-width: 1100px;
+    margin: 35px auto;
+}
+
+
+/* ENCABEZADO */
+
+.encabezado {
+    background: linear-gradient(135deg, #173b70, #2563eb);
+    color: white;
+    padding: 30px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+}
+
+.etiqueta {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    opacity: .85;
+}
+
+.encabezado h1 {
+    margin-top: 8px;
+    font-size: 30px;
+}
+
+.encabezado p {
+    margin-top: 8px;
+    opacity: .9;
+}
+
+.icono-caja {
+    font-size: 55px;
+}
+
+
+/* SECCIONES */
+
+.seccion {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.06);
+}
+
+.seccion h2 {
+    color: #173b70;
+    margin-bottom: 22px;
+    font-size: 20px;
+}
+
+
+/* GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-completo {
+    grid-column: 1 / -1;
+}
+
+
+/* FORMULARIOS */
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    padding: 12px 14px;
+    font-size: 15px;
+    background: white;
+    outline: none;
+    transition: .2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+textarea {
+    resize: vertical;
+}
+
+
+/* PRECIO */
+
+.precio-box {
+    background: #173b70;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.precio-box div {
+    text-align: center;
+}
+
+.precio-box span {
+    display: block;
+    font-size: 14px;
+    opacity: .8;
+    margin-bottom: 7px;
+}
+
+.precio-box strong {
+    font-size: 28px;
+}
+
+
+/* BOTONES */
+
+.acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+button {
+    border: none;
+    padding: 13px 25px;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-cancelar {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.btn-cancelar:hover {
+    background: #d1d5db;
+}
+
+.btn-guardar {
+    background: #16a34a;
+    color: white;
+}
+
+.btn-guardar:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-completo {
+        grid-column: auto;
+    }
+
+    .encabezado {
+        padding: 22px;
+    }
+
+    .encabezado h1 {
+        font-size: 24px;
+    }
+
+    .icono-caja {
+        font-size: 40px;
+    }
+
+    .precio-box {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .acciones {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+

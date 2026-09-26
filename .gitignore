@@ -1,0 +1,19 @@
+# Archivos temporales
+*.log
+*.tmp
+
+# Configuración local
+.env
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+
+# Dependencias
+node_modules/
+
+# Archivos temporales de XAMPP
+tmp/

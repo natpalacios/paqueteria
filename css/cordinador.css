@@ -1,0 +1,810 @@
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f6fa;
+    color: #1f2430;
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   MENÚ LATERAL
+===================================================== */
+
+.sidebar {
+    position: fixed !important;
+
+    top: 0;
+    left: 0;
+
+    width: 270px !important;
+    height: 100vh;
+
+    background: #ffffff;
+
+    border-right: 1px solid #e5e7eb;
+
+    z-index: 2000;
+
+    transform: translateX(-100%);
+
+    transition: transform 0.3s ease;
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.sidebar.menu-abierto {
+    transform: translateX(0);
+}
+
+
+.sidebar-header {
+    padding: 22px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.sidebar-header h3 {
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #6d4de6;
+}
+
+
+.profile-section {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 20px;
+}
+
+
+.profile-icon {
+    font-size: 42px;
+
+    color: #6d4de6;
+}
+
+
+.profile-info h5 {
+    margin: 0 0 4px;
+
+    font-size: 15px;
+}
+
+
+.profile-info span {
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+.menu {
+    padding: 10px !important;
+
+    margin: 0;
+
+    list-style: none;
+}
+
+
+.menu .nav-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 15px;
+
+    margin-bottom: 5px;
+
+    border-radius: 10px;
+
+    color: #4b5563;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+.menu .nav-link:hover,
+.menu .nav-link.active {
+    background: #f0ebff;
+
+    color: #6d4de6;
+}
+
+
+.menu .nav-link i {
+    font-size: 18px;
+}
+
+
+.logout-section {
+    margin-top: auto;
+
+    padding: 20px;
+}
+
+
+.logout {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    text-decoration: none;
+
+    color: #dc3545;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   BOTÓN TRES RAYAS
+===================================================== */
+
+.btn-menu {
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #6d4de6;
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    transition: 0.2s;
+}
+
+
+.btn-menu:hover {
+    background: #5936d9;
+
+    transform: scale(1.03);
+}
+
+
+/* =====================================================
+   CAPA OSCURA DEL MENÚ
+===================================================== */
+
+.menu-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    z-index: 1900;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: 0.3s;
+}
+
+
+.menu-overlay.activo {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+/* =====================================================
+   CONTENIDO PRINCIPAL
+===================================================== */
+
+.main-content {
+    width: 100% !important;
+
+    max-width: 100%;
+
+    margin: 0;
+
+    padding: 0 25px 30px;
+
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+.topbar {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-height: 82px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    margin: 0 -25px 25px;
+
+    padding: 15px 25px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+}
+
+
+.topbar h2 {
+    margin: 0;
+
+    font-size: 21px;
+
+    font-weight: 700;
+}
+
+
+.topbar p {
+    margin: 3px 0 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+.user-info {
+    margin-left: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.user-text {
+    display: flex;
+
+    flex-direction: column;
+
+    text-align: right;
+}
+
+
+.user-text strong {
+    font-size: 14px;
+}
+
+
+.user-text small {
+    color: #777;
+}
+
+
+.user-info > i {
+    font-size: 38px;
+
+    color: #6d4de6;
+}
+
+
+/* =====================================================
+   TARJETAS DEL DASHBOARD
+===================================================== */
+
+.dashboard-cards {
+    margin-bottom: 5px;
+}
+
+
+.dashboard-card {
+    background: #ffffff;
+
+    border: 1px solid #e6e8ee;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    height: 100%;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+
+    transition: 0.2s;
+}
+
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 7px 20px rgba(0,0,0,0.08);
+}
+
+
+.card-icon {
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 12px;
+
+    background: #f0ebff;
+
+    color: #6d4de6;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 24px;
+
+    flex-shrink: 0;
+}
+
+
+.card-content h6 {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+.card-text {
+    margin: 5px 0 0;
+
+    font-size: 27px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   CONTENIDO
+===================================================== */
+
+.content-card {
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    border: 1px solid #e6e8ee;
+
+    padding: 20px;
+
+    margin-bottom: 25px;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.03);
+}
+
+
+.card-header-custom {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+}
+
+
+.card-header-custom h4 {
+    margin: 0;
+
+    font-size: 18px;
+}
+
+
+.card-header-custom p {
+    margin: 4px 0 0;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   TABLA
+===================================================== */
+
+.table {
+    vertical-align: middle;
+}
+
+
+.table thead th {
+    background: #f8f9fc;
+
+    color: #555;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+.table tbody td {
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   ESTADOS
+===================================================== */
+
+.estado-badge {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.estado-pendiente {
+    background: #fff3cd;
+
+    color: #856404;
+}
+
+
+.estado-transito {
+    background: #cfe2ff;
+
+    color: #084298;
+}
+
+
+.estado-entregado {
+    background: #d1e7dd;
+
+    color: #0f5132;
+}
+
+
+/* =====================================================
+   ACCESOS RÁPIDOS
+===================================================== */
+
+.quick-access {
+    margin-top: 25px;
+}
+
+
+.quick-access h4 {
+    margin-bottom: 15px;
+
+    font-size: 18px;
+}
+
+
+.quick-card {
+    background: #ffffff;
+
+    border: 1px solid #e6e8ee;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    height: 100%;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.03);
+}
+
+
+.quick-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #6d4de6;
+
+    box-shadow: 0 8px 25px rgba(109,77,230,0.12);
+}
+
+
+.quick-icon {
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 12px;
+
+    background: #f0ebff;
+
+    color: #6d4de6;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 24px;
+
+    flex-shrink: 0;
+}
+
+
+.quick-card h5 {
+    margin: 0 0 4px;
+
+    font-size: 15px;
+}
+
+
+.quick-card p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   MODALES
+===================================================== */
+
+.modal-content {
+    border: none;
+
+    border-radius: 15px;
+
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+}
+
+
+.modal-header {
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.modal-title {
+    font-weight: 700;
+}
+
+
+.cliente-form {
+    background: #f8f9fc;
+
+    border-radius: 12px;
+
+    padding: 18px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   REPORTES
+===================================================== */
+
+.reporte-header {
+    border-bottom: 2px solid #6d4de6;
+
+    padding-bottom: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.reporte-header h3 {
+    margin: 0;
+
+    color: #6d4de6;
+}
+
+
+.reporte-header p {
+    margin: 5px 0 0;
+
+    color: #666;
+
+    font-size: 13px;
+}
+
+
+.reporte-card {
+    background: #f8f9fc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    padding: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.reporte-card small {
+    color: #6b7280;
+}
+
+
+.reporte-card strong {
+    font-size: 28px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .main-content {
+        padding-left: 15px;
+
+        padding-right: 15px;
+    }
+
+
+    .topbar {
+        margin-left: -15px;
+
+        margin-right: -15px;
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+    }
+
+
+    .user-text {
+        display: none;
+    }
+
+
+    .card-header-custom {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .topbar h2 {
+        font-size: 17px;
+    }
+
+
+    .dashboard-card {
+        padding: 15px;
+    }
+
+
+    .quick-card {
+        padding: 15px;
+    }
+
+}
+
+
+/* =====================================================
+   IMPRESIÓN DE REPORTES
+===================================================== */
+
+@media print {
+
+    body * {
+        visibility: hidden;
+    }
+
+
+    #contenidoReporte,
+    #contenidoReporte * {
+        visibility: visible;
+    }
+
+
+    #contenidoReporte {
+        position: absolute;
+
+        left: 0;
+
+        top: 0;
+
+        width: 100%;
+
+        padding: 20px;
+    }
+
+
+    .modal-footer,
+    .modal-header,
+    .btn,
+    button {
+        display: none !important;
+    }
+
+
+    .reporte-card {
+        border: 1px solid #999;
+    }
+
+}

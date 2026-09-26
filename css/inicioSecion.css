@@ -1,0 +1,319 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    overflow: hidden;
+    background: #15133A;
+    color: #ffffff;
+}
+
+
+/* =========================================
+   CONTENEDOR DEL LOGIN
+========================================= */
+
+.login-container {
+    width: 100%;
+    height: 100vh;
+
+    background: #15133A;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   DECORACIÓN SUPERIOR
+========================================= */
+
+.login-container::before {
+    content: "";
+
+    position: absolute;
+
+    width: 900px;
+    height: 450px;
+
+    top: -260px;
+    left: 50%;
+
+    transform: translateX(-50%) rotate(-5deg);
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border-radius: 50%;
+}
+
+
+/* =========================================
+   FORMA INFERIOR IZQUIERDA
+========================================= */
+
+.login-container::after {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 450px;
+
+    left: -280px;
+    bottom: -280px;
+
+    border-radius: 50%;
+
+    border: 35px solid rgba(255, 255, 255, 0.035);
+}
+
+
+/* =========================================
+   CAJA DEL LOGIN
+========================================= */
+
+.login-box {
+    width: 380px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================
+   FORMA DERECHA
+========================================= */
+
+.login-box::before {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 700px;
+
+    right: -650px;
+    top: -250px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border-radius: 50%;
+
+    transform: rotate(25deg);
+
+    z-index: -1;
+}
+
+
+/* =========================================
+   ICONO DEL CARRITO
+========================================= */
+
+.cart-icon {
+    width: 95px;
+    height: 95px;
+
+    margin-bottom: 18px;
+}
+
+.cart-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =========================================
+   FORMULARIO
+========================================= */
+
+#frmlogin {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* =========================================
+   CAMPOS
+========================================= */
+
+.input-box {
+    width: 70%;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+
+    border: 2px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 10px;
+
+    margin-bottom: 10px;
+
+    background: transparent;
+}
+
+
+/* =========================================
+   ICONOS DE LOS CAMPOS
+========================================= */
+
+.input-icon {
+    width: 68px;
+    height: 90%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-icon svg {
+    width: 25px;
+    height: 25px;
+
+    fill: none;
+
+    stroke: white;
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+.input-box input {
+    flex: 1;
+
+    height: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #edeef3;
+
+    font-size: 16px;
+
+    padding-right: 15px;
+}
+
+.input-box input::placeholder {
+    color: rgba(255, 255, 255, 0.75);
+
+    font-size: 16px;
+}
+
+
+/* =========================================
+   BOTÓN INICIO
+========================================= */
+
+.btn-inicio {
+    width: 70%;
+    height: 48px;
+
+    margin-top: 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #15133A;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.btn-inicio:hover {
+    background: #f1f1f1;
+}
+
+.btn-inicio:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .login-box {
+        width: 80%;
+        max-width: 330px;
+    }
+
+    .cart-icon {
+        width: 85px;
+        height: 85px;
+
+        margin-bottom: 30px;
+    }
+
+    .input-box {
+        height: 48px;
+
+        border-radius: 6px;
+
+        margin-bottom: 14px;
+    }
+
+    .input-icon {
+        width: 45px;
+    }
+
+    .input-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .input-box input {
+        font-size: 13px;
+    }
+
+    .input-box input::placeholder {
+        font-size: 13px;
+    }
+
+    .btn-inicio {
+        height: 48px;
+
+        font-size: 14px;
+
+        margin-top: 5px;
+    }
+}
+

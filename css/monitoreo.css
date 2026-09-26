@@ -1,0 +1,1344 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f4f6f8;
+
+    color: #1f2937;
+}
+
+
+/* =========================================================
+   BARRA SUPERIOR
+========================================================= */
+
+.topbar {
+
+    height: 64px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 25px;
+
+    background: #ffffff;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 2000;
+
+}
+
+
+.topbar-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+
+.topbar-right {
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   HAMBURGUESA
+========================================================= */
+
+.menu-button {
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    background: #f3f4f6;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 5px;
+
+    cursor: pointer;
+
+}
+
+
+.menu-button:hover {
+
+    background: #e5e7eb;
+
+}
+
+
+.menu-button span {
+
+    display: block;
+
+    width: 21px;
+
+    height: 2px;
+
+    background: #374151;
+
+    border-radius: 5px;
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.brand strong {
+
+    font-size: 17px;
+
+}
+
+
+.brand span {
+
+    font-size: 12px;
+
+    color: #6b7280;
+
+}
+
+
+/* =========================================================
+   CAMPANA
+========================================================= */
+
+.notification-wrapper {
+
+    position: relative;
+
+}
+
+
+.notification-button {
+
+    position: relative;
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    cursor: pointer;
+
+    font-size: 19px;
+
+}
+
+
+.notification-button:hover {
+
+    background: #e5e7eb;
+
+}
+
+
+.notification-badge {
+
+    display: none;
+
+    position: absolute;
+
+    top: -3px;
+
+    right: -3px;
+
+    min-width: 19px;
+
+    height: 19px;
+
+    padding: 0 5px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: #ef4444;
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    border: 2px solid white;
+
+}
+
+
+.notification-badge.visible {
+
+    display: flex;
+
+}
+
+
+/* =========================================================
+   PANEL DE NOTIFICACIONES
+========================================================= */
+
+.notification-panel {
+
+    display: none;
+
+    position: absolute;
+
+    top: 52px;
+
+    right: 0;
+
+    width: 360px;
+
+    max-width: calc(100vw - 30px);
+
+    background: white;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 15px 40px rgba(
+            0,
+            0,
+            0,
+            .15
+        );
+
+    overflow: hidden;
+
+}
+
+
+.notification-panel.open {
+
+    display: block;
+
+}
+
+
+.notification-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+}
+
+
+.notification-header button {
+
+    border: none;
+
+    background: transparent;
+
+    color: #2563eb;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+}
+
+
+.notification-list {
+
+    max-height: 400px;
+
+    overflow-y: auto;
+
+}
+
+
+.notification-empty {
+
+    padding: 30px 15px;
+
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+}
+
+
+.notification-item {
+
+    display: flex;
+
+    gap: 12px;
+
+    padding: 14px;
+
+    cursor: pointer;
+
+    border-bottom:
+        1px solid #f0f0f0;
+
+}
+
+
+.notification-item:hover {
+
+    background: #f8fafc;
+
+}
+
+
+.notification-item-icon {
+
+    width: 35px;
+
+    height: 35px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border-radius: 50%;
+
+}
+
+
+.notification-item-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+}
+
+
+.notification-item-content strong {
+
+    font-size: 13px;
+
+}
+
+
+.notification-item-content span {
+
+    font-size: 13px;
+
+    color: #2563eb;
+
+}
+
+
+.notification-item-content small {
+
+    font-size: 11px;
+
+    color: #6b7280;
+
+}
+
+
+/* =========================================================
+   MENÚ LATERAL
+========================================================= */
+
+.side-menu {
+
+    position: fixed;
+
+    left: 0;
+
+    top: 0;
+
+    width: 300px;
+
+    height: 100vh;
+
+    background: white;
+
+    z-index: 3000;
+
+    transform:
+        translateX(-100%);
+
+    transition:
+        transform .25s ease;
+
+    box-shadow:
+        5px 0 25px rgba(
+            0,
+            0,
+            0,
+            .12
+        );
+
+}
+
+
+.side-menu.open {
+
+    transform:
+        translateX(0);
+
+}
+
+
+.side-menu-header {
+
+    height: 75px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+}
+
+
+.side-menu-header div {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.side-menu-header small {
+
+    margin-top: 3px;
+
+    color: #6b7280;
+
+}
+
+
+.close-menu {
+
+    width: 35px;
+
+    height: 35px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #f3f4f6;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    color: #374151;
+
+}
+
+
+.side-navigation {
+
+    padding: 15px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+
+.menu-option {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 13px;
+
+    text-decoration: none;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 9px;
+
+    color: #374151;
+
+    cursor: pointer;
+
+    text-align: left;
+
+}
+
+
+.menu-option:hover {
+
+    background: #f3f4f6;
+
+}
+
+
+.menu-option.active {
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+}
+
+
+.menu-option > span {
+
+    width: 32px;
+
+    height: 32px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 8px;
+
+    background: #f3f4f6;
+
+}
+
+
+.menu-option.active > span {
+
+    background: white;
+
+}
+
+
+.menu-option div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+}
+
+
+.menu-option small {
+
+    color: #6b7280;
+
+    font-size: 11px;
+
+}
+
+
+.menu-option-button {
+
+    font-family: inherit;
+
+    font-size: inherit;
+
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.menu-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            .35
+        );
+
+    z-index: 2500;
+
+    display: none;
+
+}
+
+
+.menu-overlay.visible {
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+.monitor-container {
+
+    padding: 20px 25px;
+
+}
+
+
+/* =========================================================
+   ESTADÍSTICAS
+========================================================= */
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            1fr
+        );
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.stat-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 17px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    border:
+        1px solid #e5e7eb;
+
+}
+
+
+.stat-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #f3f4f6;
+
+}
+
+
+.stat-card > div:last-child {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.stat-title {
+
+    font-size: 11px;
+
+    color: #6b7280;
+
+}
+
+
+.stat-card strong {
+
+    font-size: 22px;
+
+    margin-top: 2px;
+
+}
+
+
+.stat-card small {
+
+    font-size: 10px;
+
+    color: #9ca3af;
+
+}
+
+
+/* =========================================================
+   MAPA + FLOTAS
+========================================================= */
+
+.monitor-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        2.35fr
+        .95fr;
+
+    gap: 15px;
+
+}
+
+
+.map-panel {
+
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    border:
+        1px solid #e5e7eb;
+
+}
+
+
+.panel-header {
+
+    min-height: 62px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 12px 17px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+}
+
+
+.panel-header h2 {
+
+    margin: 0 0 3px;
+
+    font-size: 16px;
+
+}
+
+
+.panel-header p {
+
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 11px;
+
+}
+
+
+#map {
+
+    width: 100%;
+
+    height: 610px;
+
+}
+
+
+/* =========================================================
+   BOTÓN
+========================================================= */
+
+.btn-secondary {
+
+    border: none;
+
+    background: #f3f4f6;
+
+    color: #374151;
+
+    padding: 8px 11px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+}
+
+
+.btn-secondary:hover {
+
+    background: #e5e7eb;
+
+}
+
+
+/* =========================================================
+   PANEL DERECHO
+========================================================= */
+
+.fleet-panel {
+
+    height: 672px;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 10px;
+
+    border:
+        1px solid #e5e7eb;
+
+}
+
+
+.fleet-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 14px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+}
+
+
+.fleet-header h2 {
+
+    margin: 0;
+
+    font-size: 15px;
+
+}
+
+
+.fleet-header small {
+
+    color: #9ca3af;
+
+    font-size: 10px;
+
+}
+
+
+.fleet-header > span {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 28px;
+
+    height: 24px;
+
+    border-radius: 20px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.tabs {
+
+    display: flex;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+}
+
+
+.tab {
+
+    flex: 1;
+
+    border: none;
+
+    background: white;
+
+    color: #6b7280;
+
+    padding: 9px 4px;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+}
+
+
+.tab.active {
+
+    color: #2563eb;
+
+    border-bottom:
+        2px solid #2563eb;
+
+}
+
+
+/* =========================================================
+   TARJETAS
+========================================================= */
+
+.vehicle-card {
+
+    margin: 9px;
+
+    padding: 11px;
+
+    border:
+        1px solid #edf0f3;
+
+    border-radius: 8px;
+
+    background: white;
+
+}
+
+
+.vehicle-card.hidden {
+
+    display: none;
+
+}
+
+
+.vehicle-card:hover {
+
+    border-color: #d1d5db;
+
+}
+
+
+.vehicle-card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+}
+
+
+.vehicle-code {
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+}
+
+
+.status-badge {
+
+    display: inline-block;
+
+    margin-left: 5px;
+
+    padding: 3px 6px;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+
+    font-weight: bold;
+
+}
+
+
+.status-en-ruta {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.status-pendiente {
+
+    background: #fef3c7;
+
+    color: #92400e;
+
+}
+
+
+.status-entregado {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.status-cancelado {
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.vehicle-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+}
+
+
+.info-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    font-size: 10px;
+
+}
+
+
+.info-row span {
+
+    color: #9ca3af;
+
+}
+
+
+.info-row strong {
+
+    max-width: 65%;
+
+    text-align: right;
+
+    word-break: break-word;
+
+}
+
+
+/* =========================================================
+   BOTÓN RUTA
+========================================================= */
+
+.card-actions {
+
+    margin-top: 9px;
+
+}
+
+
+.locate-btn {
+
+    width: 100%;
+
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    border-radius: 6px;
+
+    padding: 7px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+}
+
+
+.locate-btn:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+/* =========================================================
+   NOTIFICACIÓN DESTACADA
+========================================================= */
+
+.notification-highlight {
+
+    animation:
+        notificationPulse 2.5s ease;
+
+}
+
+
+@keyframes notificationPulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(
+                37,
+                99,
+                235,
+                .7
+            );
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 0 8px
+            rgba(
+                37,
+                99,
+                235,
+                .12
+            );
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(
+                37,
+                99,
+                235,
+                0
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   VACÍO
+========================================================= */
+
+.empty-message {
+
+    display: none;
+
+    padding: 30px;
+
+    text-align: center;
+
+    color: #6b7280;
+
+}
+
+
+.empty-message.visible {
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (
+    max-width: 1100px
+) {
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
+
+    }
+
+
+    .monitor-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .fleet-panel {
+
+        height: 600px;
+
+    }
+
+}
+
+
+@media (
+    max-width: 650px
+) {
+
+    .monitor-container {
+
+        padding: 12px;
+
+    }
+
+
+    .stats-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .topbar {
+
+        padding: 0 12px;
+
+    }
+
+
+    #map {
+
+        height: 450px;
+
+    }
+
+
+    .panel-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+}
