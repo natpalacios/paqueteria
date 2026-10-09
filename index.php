@@ -16,7 +16,7 @@
 
         <div class="login-box">
 
-            <!-- ICONO DEL CARRITO -->
+           
             <div class="cart-icon">
 
                 <svg viewBox="0 0 100 100">
@@ -55,12 +55,12 @@
             </div>
 
 
-            <!-- FORMULARIO DE LOGIN -->
+            
             <form id="frmlogin"
                   action="login.php"
                   method="POST">
 
-                <!-- USUARIO -->
+              
                 <div class="input-box">
 
                     <div class="input-icon">
@@ -85,7 +85,7 @@
                 </div>
 
 
-                <!-- CONTRASEÑA -->
+                
                 <div class="input-box">
 
                     <div class="input-icon">
@@ -113,7 +113,7 @@
                 </div>
 
 
-                <!-- BOTÓN -->
+                
                 <button
                     type="submit"
                     class="btn-inicio">
@@ -132,4 +132,3 @@
 
 </html>
 
-// Actualizacion para prueba del flujo Git

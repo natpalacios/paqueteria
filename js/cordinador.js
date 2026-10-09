@@ -26,9 +26,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    // =====================================================
+    // MENÚ LATERAL
+    // =====================================================
+
     function abrirMenu() {
 
-        sidebar.classList.add("menu-abierto");
+        if (sidebar) {
+            sidebar.classList.add("menu-abierto");
+        }
 
         if (menuOverlay) {
             menuOverlay.classList.add("activo");
@@ -39,7 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function cerrarMenu() {
 
-        sidebar.classList.remove("menu-abierto");
+        if (sidebar) {
+            sidebar.classList.remove("menu-abierto");
+        }
 
         if (menuOverlay) {
             menuOverlay.classList.remove("activo");
@@ -52,7 +60,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         btnMenu.addEventListener("click", function () {
 
-            if (sidebar.classList.contains("menu-abierto")) {
+            if (
+                sidebar &&
+                sidebar.classList.contains("menu-abierto")
+            ) {
 
                 cerrarMenu();
 
@@ -67,17 +78,58 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    // Cerrar haciendo clic fuera del menú
     if (menuOverlay) {
 
         menuOverlay.addEventListener(
             "click",
-            cerrarMenu
+            function () {
+
+                cerrarMenu();
+
+            }
         );
 
     }
 
 
+    // Cerrar menú al presionar ESC
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+                cerrarMenu();
+
+            }
+
+        }
+    );
+
+
+    // Cerrar menú al seleccionar una opción
+    document.querySelectorAll(".sidebar .nav-link").forEach(
+        function (enlace) {
+
+            enlace.addEventListener(
+                "click",
+                function () {
+
+                    cerrarMenu();
+
+                }
+            );
+
+        }
+    );
+
+
     
+    // =====================================================
+    // DASHBOARD
+    // =====================================================
+
     window.cargarDashboard = function () {
 
         fetch("api.php?accion=dashboard")
@@ -120,6 +172,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    // =====================================================
+    // CARGAR ENVÍOS
+    // =====================================================
+
     window.cargarEnvios = function () {
 
         const tabla = document.getElementById("tablaEnvios");
@@ -253,6 +309,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    // =====================================================
+    // DETALLE DE ENVÍO
+    // =====================================================
+
     window.verDetalleEnvio = function (id) {
 
         fetch("api.php?accion=envios")
@@ -283,6 +343,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    // =====================================================
+    // CLIENTES
+    // =====================================================
+
     if (btnClientes) {
 
         btnClientes.addEventListener("click", function () {
@@ -400,6 +464,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    // =====================================================
+    // FORMULARIO CLIENTE
+    // =====================================================
+
     const btnMostrarFormularioCliente =
         document.getElementById(
             "btnMostrarFormularioCliente"
@@ -524,6 +592,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    // =====================================================
+    // NUEVO ENVÍO
+    // =====================================================
+
     if (btnNuevoEnvio) {
 
         btnNuevoEnvio.addEventListener(
@@ -714,6 +786,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
    
+    // =====================================================
+    // REPORTES
+    // =====================================================
+
     if (btnReportes) {
 
         btnReportes.addEventListener(
@@ -970,6 +1046,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    // =====================================================
+    // IMPRIMIR REPORTE
+    // =====================================================
+
     const btnImprimirReporte =
         document.getElementById(
             "btnImprimirReporte"
@@ -991,6 +1071,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    // =====================================================
+    // PROTECCIÓN HTML
+    // =====================================================
+
     function escapeHTML(text) {
 
         if (text === null || text === undefined) {
@@ -1013,6 +1097,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    // =====================================================
+    // INICIAR
+    // =====================================================
+
     cargarDashboard();
 
     cargarEnvios();

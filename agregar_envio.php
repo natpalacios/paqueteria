@@ -82,25 +82,33 @@ $conexion->close();
             <div class="grid">
 
 
-                <div class="campo">
+               <div class="campo">
 
-                    <label>
-                        Cliente *
-                    </label>
+                 <label>
+                   Cliente *
+                 </label>
 
-                    <select
-                        id="cliente_id"
-                        name="cliente_id"
-                       required
-                    >
+             <input
+               type="text"
+               id="cliente_busqueda"
+                 class="form-control"
+                  placeholder="Escriba el nombre del cliente..."
+                   autocomplete="off"
+                 required
+                >
 
-                        <option value="">
-                            Cargando clientes...
-                        </option>
+               <input
+               type="hidden"
+                id="cliente_id"
+                  name="cliente_id"
+                 >
 
-                    </select>
+                <div
+                   id="lista_clientes"
+                   class="lista-clientes"
+               ></div>
 
-                </div>
+            </div>
 
 
                 <div class="campo">
