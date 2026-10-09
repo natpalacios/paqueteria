@@ -1,8 +1,13 @@
-
 document.addEventListener("DOMContentLoaded", function () {
 
-    const clienteSelect =
+    const clienteBusqueda =
+        document.getElementById("cliente_busqueda");
+
+    const clienteIdInput =
         document.getElementById("cliente_id");
+
+    const listaClientes =
+        document.getElementById("lista_clientes");
 
     const repartidorSelect =
         document.getElementById("repartidor_id");
@@ -35,6 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("fecha_envio");
 
 
+    let clientes = [];
+
+    let repartidores = [];
+
+
     /* =====================================
        FECHA ACTUAL
     ===================================== */
@@ -59,37 +69,147 @@ document.addEventListener("DOMContentLoaded", function () {
 
         .then(response => response.json())
 
-        .then(clientes => {
+        .then(data => {
 
-            clienteSelect.innerHTML =
-                '<option value="">Seleccione un cliente...</option>';
-
-            clientes.forEach(cliente => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value = cliente.id;
-
-                option.textContent =
-                    cliente.nombre +
-                    " - " +
-                    cliente.cedula;
-
-                clienteSelect.appendChild(option);
-
-            });
+            clientes = data;
 
         })
 
         .catch(error => {
 
-            console.error(error);
-
-            clienteSelect.innerHTML =
-                '<option value="">Error al cargar clientes</option>';
+            console.error(
+                "Error al cargar clientes:",
+                error
+            );
 
         });
+
+
+    /* =====================================
+       BUSCAR CLIENTES
+    ===================================== */
+
+    clienteBusqueda.addEventListener(
+        "input",
+        function () {
+
+            const texto =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+
+            clienteIdInput.value = "";
+
+
+            if (texto === "") {
+
+                listaClientes.innerHTML = "";
+
+                return;
+
+            }
+
+
+            const coincidencias =
+                clientes.filter(cliente => {
+
+                    const nombre =
+                        (cliente.nombre || "")
+                            .toLowerCase();
+
+                    const cedula =
+                        (cliente.cedula || "")
+                            .toLowerCase();
+
+                    return (
+                        nombre.includes(texto) ||
+                        cedula.includes(texto)
+                    );
+
+                });
+
+
+            listaClientes.innerHTML = "";
+
+
+            if (coincidencias.length === 0) {
+
+                listaClientes.innerHTML =
+                    '<div class="cliente-no-encontrado">' +
+                    'No se encontraron clientes' +
+                    '</div>';
+
+                return;
+
+            }
+
+
+            coincidencias.forEach(cliente => {
+
+                const opcion =
+                    document.createElement("div");
+
+                opcion.className =
+                    "cliente-opcion";
+
+
+                opcion.innerHTML =
+                    "<strong>" +
+                    escapeHtml(cliente.nombre) +
+                    "</strong>" +
+                    "<br>" +
+                    "<small>" +
+                    "Cédula: " +
+                    escapeHtml(cliente.cedula || "Sin cédula") +
+                    " | Tel: " +
+                    escapeHtml(cliente.telefono || "Sin teléfono") +
+                    "</small>";
+
+
+                opcion.addEventListener(
+                    "click",
+                    function () {
+
+                        clienteBusqueda.value =
+                            cliente.nombre;
+
+                        clienteIdInput.value =
+                            cliente.id;
+
+                        listaClientes.innerHTML = "";
+
+                    }
+                );
+
+
+                listaClientes.appendChild(opcion);
+
+            });
+
+        }
+    );
+
+
+    /* =====================================
+       OCULTAR LISTA AL HACER CLIC FUERA
+    ===================================== */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                !clienteBusqueda.contains(event.target) &&
+                !listaClientes.contains(event.target)
+            ) {
+
+                listaClientes.innerHTML = "";
+
+            }
+
+        }
+    );
 
 
     /* =====================================
@@ -100,17 +220,100 @@ document.addEventListener("DOMContentLoaded", function () {
 
         .then(response => response.json())
 
-        .then(repartidores => {
+        .then(data => {
+
+            repartidores = data;
+
+            actualizarRepartidores();
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "Error al cargar repartidores:",
+                error
+            );
 
             repartidorSelect.innerHTML =
-                '<option value="">Seleccione un repartidor...</option>';
+                '<option value="">' +
+                'Error al cargar repartidores' +
+                '</option>';
 
-            repartidores.forEach(repartidor => {
+        });
+
+
+    /* =====================================
+       MOSTRAR REPARTIDORES SEGÚN DEPARTAMENTO
+    ===================================== */
+
+    function actualizarRepartidores() {
+
+        const opcionDepartamento =
+            departamentoSelect.options[
+                departamentoSelect.selectedIndex
+            ];
+
+
+        const departamento =
+            opcionDepartamento
+                ? opcionDepartamento.value
+                : "";
+
+
+        repartidorSelect.innerHTML =
+            '<option value="">' +
+            'Seleccione un repartidor...' +
+            '</option>';
+
+
+        vehiculoInput.value = "";
+
+
+        if (!departamento) {
+
+            return;
+
+        }
+
+
+        const repartidoresFiltrados =
+            repartidores.filter(repartidor => {
+
+                return (
+                    String(repartidor.departamento)
+                        .trim()
+                        .toLowerCase() ===
+                    String(departamento)
+                        .trim()
+                        .toLowerCase()
+                );
+
+            });
+
+
+        if (
+            repartidoresFiltrados.length === 0
+        ) {
+
+            repartidorSelect.innerHTML =
+                '<option value="">' +
+                'No hay repartidores activos para este departamento' +
+                '</option>';
+
+            return;
+
+        }
+
+
+        repartidoresFiltrados.forEach(
+            repartidor => {
 
                 const option =
                     document.createElement("option");
 
-                option.value = repartidor.id;
+                option.value =
+                    repartidor.id;
 
                 option.textContent =
                     repartidor.nombre +
@@ -120,20 +323,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 option.dataset.vehiculo =
                     repartidor.vehiculo || "";
 
-                repartidorSelect.appendChild(option);
+                repartidorSelect.appendChild(
+                    option
+                );
 
-            });
+            }
+        );
 
-        })
-
-        .catch(error => {
-
-            console.error(error);
-
-            repartidorSelect.innerHTML =
-                '<option value="">Error al cargar repartidores</option>';
-
-        });
+    }
 
 
     /* =====================================
@@ -145,9 +342,15 @@ document.addEventListener("DOMContentLoaded", function () {
         function () {
 
             const opcion =
-                this.options[this.selectedIndex];
+                this.options[
+                    this.selectedIndex
+                ];
 
-            if (opcion && opcion.dataset.vehiculo) {
+
+            if (
+                opcion &&
+                opcion.dataset.vehiculo
+            ) {
 
                 vehiculoInput.value =
                     opcion.dataset.vehiculo;
@@ -171,23 +374,37 @@ document.addEventListener("DOMContentLoaded", function () {
         function () {
 
             const opcion =
-                this.options[this.selectedIndex];
+                this.options[
+                    this.selectedIndex
+                ];
+
 
             const departamentoId =
                 opcion.dataset.id;
 
+
             municipioSelect.innerHTML =
-                '<option value="">Cargando municipios...</option>';
+                '<option value="">' +
+                'Cargando municipios...' +
+                '</option>';
 
             municipioSelect.disabled = true;
+
+
+            actualizarRepartidores();
 
 
             if (!departamentoId) {
 
                 municipioSelect.innerHTML =
-                    '<option value="">Seleccione primero el departamento</option>';
+                    '<option value="">' +
+                    'Seleccione primero el departamento' +
+                    '</option>';
+
+                mostrarPrecio(0);
 
                 return;
+
             }
 
 
@@ -201,27 +418,39 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(municipios => {
 
                 municipioSelect.innerHTML =
-                    '<option value="">Seleccione municipio...</option>';
+                    '<option value="">' +
+                    'Seleccione municipio...' +
+                    '</option>';
 
-                municipios.forEach(municipio => {
 
-                    const option =
-                        document.createElement("option");
+                municipios.forEach(
+                    municipio => {
 
-                    option.value =
-                        municipio.nombre;
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
 
-                    option.textContent =
-                        municipio.nombre;
+                        option.value =
+                            municipio.nombre;
 
-                    option.dataset.id =
-                        municipio.id;
+                        option.textContent =
+                            municipio.nombre;
 
-                    municipioSelect.appendChild(option);
+                        option.dataset.id =
+                            municipio.id;
 
-                });
+                        municipioSelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
 
                 municipioSelect.disabled = false;
+
+                mostrarPrecio(0);
 
             })
 
@@ -230,7 +459,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error(error);
 
                 municipioSelect.innerHTML =
-                    '<option value="">Error al cargar municipios</option>';
+                    '<option value="">' +
+                    'Error al cargar municipios' +
+                    '</option>';
 
             });
 
@@ -247,10 +478,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const peso =
             parseFloat(pesoInput.value);
 
+
         const opcion =
             municipioSelect.options[
                 municipioSelect.selectedIndex
             ];
+
 
         if (
             !peso ||
@@ -262,6 +495,7 @@ document.addEventListener("DOMContentLoaded", function () {
             mostrarPrecio(0);
 
             return;
+
         }
 
 
@@ -272,9 +506,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(
             "calcular_tarifa.php?" +
             "municipio_id=" +
-            municipioId +
-            "&peso=" +
-            peso
+            municipioId
         )
 
         .then(response => response.json())
@@ -283,9 +515,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (data.success) {
 
-                mostrarPrecio(
-                    parseFloat(data.precio)
-                );
+                const costoEnvio =
+                    parseFloat(data.precio) || 0;
+
+
+                const precioKg = 100;
+
+
+                const costoPeso =
+                    peso * precioKg;
+
+
+                const total =
+                    costoEnvio +
+                    costoPeso;
+
+
+                costoInput.value =
+                    costoEnvio.toFixed(2);
+
+
+                totalInput.value =
+                    total.toFixed(2);
+
+
+                costoMostrar.textContent =
+                    "C$ " +
+                    costoEnvio.toFixed(2);
+
+
+                totalMostrar.textContent =
+                    "C$ " +
+                    total.toFixed(2);
 
             } else {
 
@@ -308,26 +569,47 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    function mostrarPrecio(precio) {
+    /* =====================================
+       MOSTRAR PRECIO
+    ===================================== */
 
-        costoInput.value = precio;
+    function mostrarPrecio(
+        costoEnvio
+    ) {
 
-        totalInput.value = precio;
+        costoInput.value =
+            costoEnvio.toFixed(2);
+
+
+        totalInput.value =
+            costoEnvio.toFixed(2);
+
 
         costoMostrar.textContent =
-            "C$ " + precio.toFixed(2);
+            "C$ " +
+            costoEnvio.toFixed(2);
+
 
         totalMostrar.textContent =
-            "C$ " + precio.toFixed(2);
+            "C$ " +
+            costoEnvio.toFixed(2);
 
     }
 
+
+    /* =====================================
+       CAMBIO DE PESO
+    ===================================== */
 
     pesoInput.addEventListener(
         "input",
         calcularTarifa
     );
 
+
+    /* =====================================
+       CAMBIO DE MUNICIPIO
+    ===================================== */
 
     municipioSelect.addEventListener(
         "change",
@@ -350,8 +632,50 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
 
 
+            /* -----------------------------
+               VALIDAR CLIENTE
+            ----------------------------- */
+
             if (
-                parseFloat(costoInput.value) <= 0
+                !clienteIdInput.value
+            ) {
+
+                alert(
+                    "Debe seleccionar un cliente de la lista."
+                );
+
+                clienteBusqueda.focus();
+
+                return;
+
+            }
+
+
+            /* -----------------------------
+               VALIDAR REPARTIDOR
+            ----------------------------- */
+
+            if (
+                !repartidorSelect.value
+            ) {
+
+                alert(
+                    "Debe seleccionar un repartidor."
+                );
+
+                return;
+
+            }
+
+
+            /* -----------------------------
+               VALIDAR COSTO
+            ----------------------------- */
+
+            if (
+                parseFloat(
+                    costoInput.value
+                ) <= 0
             ) {
 
                 alert(
@@ -359,6 +683,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
                 return;
+
             }
 
 
@@ -367,7 +692,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             const boton =
-                form.querySelector(".btn-guardar");
+                form.querySelector(
+                    ".btn-guardar"
+                );
 
 
             boton.disabled = true;
@@ -376,15 +703,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Guardando...";
 
 
-            fetch("guardar_envio.php", {
+            fetch(
+                "guardar_envio.php",
+                {
+                    method: "POST",
+                    body: datos
+                }
+            )
 
-                method: "POST",
-
-                body: datos
-
-            })
-
-            .then(response => response.json())
+            .then(
+                response =>
+                    response.json()
+            )
 
             .then(data => {
 
@@ -433,5 +763,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
-});
 
+    /* =====================================
+       SEGURIDAD PARA TEXTO HTML
+    ===================================== */
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            text;
+
+        return div.innerHTML;
+
+    }
+
+});

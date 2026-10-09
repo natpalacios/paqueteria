@@ -4,9 +4,7 @@ session_start();
 
 require_once "conexion.php";
 
-/* =========================================================
-   VERIFICAR SESIÓN
-========================================================= */
+
 if (!isset($_SESSION["id"])) {
     header("Location: index.php");
     exit;
@@ -19,9 +17,7 @@ $rol = $_SESSION["rol"] ?? "Coordinador";
 $mensaje = "";
 $error = "";
 
-/* =========================================================
-   CERRAR SESIÓN
-========================================================= */
+
 if (isset($_GET["logout"])) {
     session_unset();
     session_destroy();
@@ -30,11 +26,7 @@ if (isset($_GET["logout"])) {
     exit;
 }
 
-/* =========================================================
-   MENSAJE CUANDO SE CREA UN ENVÍO
-   agregar_envio.php debe redirigir así:
-   Cordinador.php?envio=creado&codigo=ENV-00001
-========================================================= */
+
 if (isset($_GET["envio"]) && $_GET["envio"] === "creado") {
 
     $codigoCreado = $_GET["codigo"] ?? "";
@@ -46,9 +38,7 @@ if (isset($_GET["envio"]) && $_GET["envio"] === "creado") {
     }
 }
 
-/* =========================================================
-   AGREGAR CLIENTE
-========================================================= */
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 
     $accion = $_POST["accion"];
@@ -56,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     if ($accion === "agregar_cliente") {
 
         $nombreCliente = trim($_POST["nombre"] ?? "");
+        $cedula = trim($_POST["cedula"] ?? "");
         $telefono = trim($_POST["telefono"] ?? "");
         $correo = trim($_POST["correo"] ?? "");
         $direccionCliente = trim($_POST["direccion"] ?? "");
@@ -67,19 +58,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
         } else {
 
             $sql = "INSERT INTO clientes 
-                    (nombre, telefono, correo, direccion)
-                    VALUES (?, ?, ?, ?)";
+                    (nombre,cedula, telefono, correo, direccion)
+                    VALUES (?, ?, ?, ?,?)";
 
             $stmt = $conexion->prepare($sql);
 
             if ($stmt) {
 
                 $stmt->bind_param(
-                    "ssss",
-                    $nombreCliente,
-                    $telefono,
-                    $correo,
-                    $direccionCliente
+                 "sssss",
+                 $nombreCliente,
+                 $cedula,
+                 $telefono,
+                 $correo,
+                 $direccionCliente
                 );
 
                 if ($stmt->execute()) {
@@ -101,16 +93,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     }
 }
 
-/* =========================================================
-   ESTADÍSTICAS DE ENVÍOS
-========================================================= */
+
 
 $totalEnvios = 0;
 $enviosPendientes = 0;
 $enviosTransito = 0;
 $enviosEntregados = 0;
 
-/* Total */
+
 $resultado = $conexion->query(
     "SELECT COUNT(*) AS total FROM envios"
 );
@@ -120,7 +110,7 @@ if ($resultado) {
     $totalEnvios = intval($fila["total"]);
 }
 
-/* Pendientes */
+
 $resultado = $conexion->query(
     "SELECT COUNT(*) AS total 
      FROM envios 
@@ -132,7 +122,7 @@ if ($resultado) {
     $enviosPendientes = intval($fila["total"]);
 }
 
-/* En tránsito */
+
 $resultado = $conexion->query(
     "SELECT COUNT(*) AS total 
      FROM envios 
@@ -144,7 +134,7 @@ if ($resultado) {
     $enviosTransito = intval($fila["total"]);
 }
 
-/* Entregados */
+
 $resultado = $conexion->query(
     "SELECT COUNT(*) AS total 
      FROM envios 
@@ -156,9 +146,7 @@ if ($resultado) {
     $enviosEntregados = intval($fila["total"]);
 }
 
-/* =========================================================
-   CONTAR CLIENTES
-========================================================= */
+
 
 $totalClientes = 0;
 
@@ -171,9 +159,7 @@ if ($resultado) {
     $totalClientes = intval($fila["total"]);
 }
 
-/* =========================================================
-   CONTAR REPARTIDORES ACTIVOS
-========================================================= */
+
 
 $totalRepartidores = 0;
 
@@ -188,9 +174,7 @@ if ($resultado) {
     $totalRepartidores = intval($fila["total"]);
 }
 
-/* =========================================================
-   OBTENER CLIENTES
-========================================================= */
+
 
 $clientes = [];
 
@@ -216,9 +200,7 @@ if ($resultadoClientes) {
     }
 }
 
-/* =========================================================
-   OBTENER REPARTIDORES ACTIVOS
-========================================================= */
+
 
 $repartidores = [];
 
@@ -244,9 +226,7 @@ if ($resultadoRepartidores) {
     }
 }
 
-/* =========================================================
-   ENVÍOS RECIENTES
-========================================================= */
+
 
 $enviosRecientes = [];
 
@@ -285,9 +265,6 @@ if ($resultadoEnvios) {
     }
 }
 
-/* =========================================================
-   EXPORTAR ENVÍOS A CSV
-========================================================= */
 
 if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
@@ -397,357 +374,649 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
         rel="stylesheet"
     >
 
-    <style>
+<style>
 
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f6f9;
-        }
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f8fc;
+        color: #172b4d;
+        overflow-x: hidden;
+    }
 
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 250px;
-            height: 100vh;
-            background: #111827;
-            color: white;
-            padding: 20px 15px;
-            z-index: 1000;
-        }
+  
 
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 30px;
-        }
+    .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
 
-        .logo span {
-            color: #0d6efd;
-        }
+        width: 260px !important;
+        height: 100vh !important;
 
-        .menu-title {
-            font-size: 12px;
-            color: #9ca3af;
-            margin: 20px 10px 8px;
-            text-transform: uppercase;
-        }
+        background: #063b70 !important;
+        color: white !important;
 
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #d1d5db;
-            text-decoration: none;
-            padding: 12px 13px;
-            border-radius: 8px;
-            margin-bottom: 5px;
-        }
+        z-index: 1050 !important;
 
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: #1d4ed8;
-            color: white;
-        }
+        padding: 0 !important;
 
-        .main {
-            margin-left: 250px;
-            padding: 25px;
+        transform: translateX(-100%) !important;
+
+        transition: transform .3s ease !important;
+
+        display: block !important;
+    }
+
+    .sidebar.menu-abierto {
+        transform: translateX(0) !important;
+    }
+
+    .sidebar-header {
+        padding: 20px;
+        border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+
+    .sidebar-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+    }
+
+    
+
+    .profile-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        padding: 20px;
+
+        border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+
+    .profile-icon {
+        font-size: 40px;
+        color: white;
+    }
+
+    .profile-info h5 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .profile-info span {
+        color: #c9def3;
+        font-size: 12px;
+    }
+
+  
+
+    .menu {
+        list-style: none;
+        padding: 15px;
+        margin: 0;
+    }
+
+    .menu li {
+        margin-bottom: 6px;
+    }
+
+    .menu .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+
+        padding: 13px 15px;
+
+        border-radius: 8px;
+
+        color: white !important;
+
+        text-decoration: none;
+
+        font-size: 14px;
+
+        transition: all .25s ease;
+    }
+
+    .menu .nav-link i {
+        font-size: 18px;
+        width: 22px;
+    }
+
+    .menu .nav-link:hover {
+        background: rgba(255,255,255,.12);
+        color: white !important;
+        padding-left: 20px;
+    }
+
+    .menu .nav-link.active {
+        background: #0879df;
+        color: white !important;
+
+        box-shadow: 0 4px 10px rgba(0,0,0,.15);
+    }
+
+  
+
+    .logout-section {
+        position: absolute;
+
+        bottom: 25px;
+        left: 15px;
+        right: 15px;
+    }
+
+    .logout {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+
+        padding: 13px 15px;
+
+        border-radius: 8px;
+
+        color: white !important;
+
+        text-decoration: none;
+
+        font-size: 14px;
+    }
+
+    .logout:hover {
+        background: rgba(255,255,255,.12);
+        color: white !important;
+    }
+
+    .logout i {
+        font-size: 18px;
+    }
+
+   
+
+    .menu-overlay {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100vh;
+
+        background: rgba(0,0,0,.35);
+
+        z-index: 1040;
+
+        opacity: 0;
+        visibility: hidden;
+
+        transition: all .3s ease;
+    }
+
+    .menu-overlay.activo {
+        opacity: 1;
+        visibility: visible;
+    }
+
+   
+
+    .main,
+    .main-content {
+        margin-left: 0 !important;
+
+        width: 100% !important;
+
+        padding: 25px;
+    }
+
+
+    .topbar {
+        background: white;
+
+        border-radius: 12px;
+
+        padding: 15px 20px;
+
+        margin-bottom: 25px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 18px;
+
+        box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    }
+
+    .topbar > div:nth-child(2) {
+        flex: 1;
+    }
+
+    .topbar h2 {
+        margin: 0;
+
+        font-size: 24px;
+
+        font-weight: bold;
+    }
+
+    .topbar p {
+        margin: 4px 0 0;
+
+        color: #718096;
+
+        font-size: 14px;
+    }
+
+  
+
+    .btn-menu {
+        width: 45px !important;
+        height: 45px !important;
+
+        min-width: 45px;
+
+        border: none !important;
+
+        border-radius: 9px !important;
+
+        background: #063b70 !important;
+
+        color: white !important;
+
+        font-size: 23px !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+        cursor: pointer;
+
+        flex-shrink: 0;
+    }
+
+    .btn-menu:hover {
+        background: #0879df !important;
+
+        transform: scale(1.05);
+    }
+
+
+    .user-info {
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+    }
+
+    .user-text {
+        display: flex;
+
+        flex-direction: column;
+
+        text-align: right;
+    }
+
+    .user-text strong {
+        font-size: 14px;
+    }
+
+    .user-text small {
+        color: #777;
+
+        font-size: 12px;
+    }
+
+    .user-info > i {
+        font-size: 35px;
+
+        color: #0879df;
+    }
+
+  
+
+    .stats-card {
+        background: white;
+
+        border-radius: 12px;
+
+        padding: 20px;
+
+        box-shadow: 0 2px 10px rgba(0,0,0,.05);
+
+        height: 100%;
+
+        border: 1px solid #e3e8ed;
+    }
+
+    .stats-icon {
+        width: 50px;
+        height: 50px;
+
+        border-radius: 10px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 23px;
+
+        background: #e8f0ff;
+
+        color: #0879df;
+    }
+
+    .stats-number {
+        font-size: 28px;
+
+        font-weight: bold;
+
+        margin-top: 12px;
+    }
+
+    .stats-title {
+        color: #6b7280;
+
+        font-size: 14px;
+    }
+
+
+    .quick-card {
+        background: white;
+
+        border-radius: 12px;
+
+        padding: 22px;
+
+        box-shadow: 0 2px 10px rgba(0,0,0,.05);
+
+        height: 100%;
+
+        cursor: pointer;
+
+        transition: .2s;
+
+        color: #212529;
+
+        border: 1px solid #e3e8ed;
+    }
+
+    .quick-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow: 0 5px 18px rgba(0,0,0,.10);
+    }
+
+    .quick-card i {
+        font-size: 32px;
+
+        color: #0879df;
+    }
+
+   
+
+    .section-card {
+        background: white;
+
+        border-radius: 12px;
+
+        box-shadow: 0 2px 10px rgba(0,0,0,.05);
+
+        overflow: hidden;
+
+        border: 1px solid #e3e8ed;
+    }
+
+    .section-header {
+        padding: 18px 20px;
+
+        border-bottom: 1px solid #eee;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+    }
+
+    .section-header h5 {
+        margin: 0;
+
+        font-weight: bold;
+    }
+
+    .table-responsive {
+        padding: 10px;
+    }
+
+    
+
+    .badge-pendiente {
+        background: #fff3cd;
+
+        color: #856404;
+    }
+
+    .badge-transito {
+        background: #cfe2ff;
+
+        color: #084298;
+    }
+
+    .badge-entregado {
+        background: #d1e7dd;
+
+        color: #0f5132;
+    }
+
+    .badge-cancelado {
+        background: #f8d7da;
+
+        color: #842029;
+    }
+
+   
+
+    @media (max-width: 900px) {
+
+        .main,
+        .main-content {
+            padding: 15px;
         }
 
         .topbar {
-            background: white;
-            border-radius: 12px;
-            padding: 18px 22px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
-        }
-
-        .topbar h3 {
-            margin: 0;
-            font-weight: bold;
+            flex-wrap: wrap;
         }
 
         .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            margin-left: auto;
         }
+    }
 
-        .avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: #0d6efd;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .stats-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
-            height: 100%;
-        }
-
-        .stats-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 23px;
-            background: #e8f0ff;
-            color: #0d6efd;
-        }
-
-        .stats-number {
-            font-size: 28px;
-            font-weight: bold;
-            margin-top: 12px;
-        }
-
-        .stats-title {
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .quick-card {
-            background: white;
-            border-radius: 12px;
-            padding: 22px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
-            height: 100%;
-            cursor: pointer;
-            transition: .2s;
-            color: #212529;
-        }
-
-        .quick-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 18px rgba(0,0,0,.10);
-        }
-
-        .quick-card i {
-            font-size: 32px;
-            color: #0d6efd;
-        }
-
-        .section-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
-            overflow: hidden;
-        }
-
-        .section-header {
-            padding: 18px 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .section-header h5 {
-            margin: 0;
-            font-weight: bold;
-        }
-
-        .table-responsive {
-            padding: 10px;
-        }
-
-        .badge-pendiente {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .badge-transito {
-            background: #cfe2ff;
-            color: #084298;
-        }
-
-        .badge-entregado {
-            background: #d1e7dd;
-            color: #0f5132;
-        }
-
-        .badge-cancelado {
-            background: #f8d7da;
-            color: #842029;
-        }
-
-        .mobile-menu {
-            display: none;
-        }
-
-        @media (max-width: 900px) {
-
-            .sidebar {
-                transform: translateX(-100%);
-                transition: .3s;
-            }
-
-            .sidebar.show {
-                transform: translateX(0);
-            }
-
-            .main {
-                margin-left: 0;
-                padding: 15px;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .topbar {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-        }
-
-    </style>
+</style>
 
 </head>
 
 <body>
 
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
+
 
 <div class="sidebar" id="sidebar">
 
-    <div class="logo">
-        Grupo <span>S.A Logistic</span>
+    <div class="sidebar-header">
+
+        <h3>
+            Grupo S.A Logistic
+        </h3>
+
     </div>
 
-    <div class="menu-title">
-        Principal
+    <div class="profile-section">
+
+        <i class="bi bi-person-circle profile-icon"></i>
+
+        <div class="profile-info">
+
+            <h5>
+                <?= htmlspecialchars($nombre) ?>
+            </h5>
+
+            <span>
+                <?= htmlspecialchars($rol) ?>
+            </span>
+
+        </div>
+
     </div>
 
-    <a href="Cordinador.php" class="active">
-        <i class="bi bi-speedometer2"></i>
-        <span>Inicio</span>
-    </a>
+    <ul class="menu">
 
-    <a href="#envios">
-        <i class="bi bi-box-seam"></i>
-        <span>Envíos</span>
-    </a>
+        <li>
+            <a href="Cordinador.php" class="nav-link active">
 
-    <a href="#clientes">
-        <i class="bi bi-people"></i>
-        <span>Clientes</span>
-    </a>
+                <i class="bi bi-speedometer2"></i>
 
-    <a href="#repartidores">
-        <i class="bi bi-truck"></i>
-        <span>Repartidores</span>
-    </a>
+                <span>
+                    Inicio
+                </span>
 
-    <a href="#seguimiento">
-        <i class="bi bi-geo-alt"></i>
-        <span>Seguimiento</span>
-    </a>
+            </a>
+        </li>
 
-    <a href="#reportes">
-        <i class="bi bi-bar-chart"></i>
-        <span>Reportes</span>
-    </a>
+        <li>
+            <a href="#envios" class="nav-link">
 
-    <div class="menu-title">
-        Sistema
+                <i class="bi bi-box-seam"></i>
+
+                <span>
+                    Envíos
+                </span>
+
+            </a>
+        </li>
+
+        <li>
+            <a href="#clientes" class="nav-link">
+
+                <i class="bi bi-people"></i>
+
+                <span>
+                    Clientes
+                </span>
+
+            </a>
+        </li>
+
+        <li>
+            <a href="#repartidores" class="nav-link">
+
+                <i class="bi bi-truck"></i>
+
+                <span>
+                    Repartidores
+                </span>
+
+            </a>
+        </li>
+
+        <li>
+            <a href="#reportes" class="nav-link">
+
+                <i class="bi bi-bar-chart"></i>
+
+                <span>
+                    Reportes
+                </span>
+
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="logout-section">
+
+        <a
+            href="Cordinador.php?logout=1"
+            class="logout"
+        >
+
+            <i class="bi bi-box-arrow-right"></i>
+
+            <span>
+                Cerrar sesión
+            </span>
+
+        </a>
+
     </div>
-
-    <a href="#configuracion">
-        <i class="bi bi-gear"></i>
-        <span>Configuración</span>
-    </a>
-
-    <a href="Cordinador.php?logout=1">
-        <i class="bi bi-box-arrow-right"></i>
-        <span>Cerrar sesión</span>
-    </a>
 
 </div>
 
 
-<!-- =====================================================
-     CONTENIDO PRINCIPAL
-===================================================== -->
 
-<div class="main">
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+></div>
 
-    <!-- TOPBAR -->
+
+
+<div class="main-content">
+
+   
 
     <div class="topbar">
 
-        <div class="d-flex align-items-center gap-3">
+        <button
+            type="button"
+            class="btn-menu"
+            id="btnMenu"
+        >
+            <i class="bi bi-list"></i>
+        </button>
 
-            <button
-                class="btn btn-outline-secondary mobile-menu"
-                onclick="toggleSidebar()"
-            >
-                <i class="bi bi-list"></i>
-            </button>
+        <div>
 
-            <div>
+            <h2>
+                Panel del Coordinador
+            </h2>
 
-                <h3>
-                    Panel del Coordinador
-                </h3>
-
-                <small class="text-muted">
-                    Administración de envíos y logística
-                </small>
-
-            </div>
+            <p>
+                Administración de envíos y logística
+            </p>
 
         </div>
 
         <div class="user-info">
 
-            <div>
+            <div class="user-text">
 
                 <strong>
                     <?= htmlspecialchars($nombre) ?>
                 </strong>
 
-                <br>
-
-                <small class="text-muted">
+                <small>
                     <?= htmlspecialchars($rol) ?>
                 </small>
 
             </div>
 
-            <div class="avatar">
-
-                <?= strtoupper(substr($nombre, 0, 1)) ?>
-
-            </div>
+            <i class="bi bi-person-circle"></i>
 
         </div>
 
     </div>
 
-
-    <!-- =================================================
-         MENSAJES
-    ================================================= -->
+    
 
     <?php if ($mensaje !== ""): ?>
 
@@ -770,7 +1039,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
     <?php endif; ?>
 
-
     <?php if ($error !== ""): ?>
 
         <div
@@ -792,10 +1060,7 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
     <?php endif; ?>
 
-
-    <!-- =================================================
-         ESTADÍSTICAS
-    ================================================= -->
+   
 
     <div class="row g-4 mb-4">
 
@@ -819,7 +1084,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
         </div>
 
-
         <div class="col-md-6 col-lg-3">
 
             <div class="stats-card">
@@ -840,7 +1104,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
         </div>
 
-
         <div class="col-md-6 col-lg-3">
 
             <div class="stats-card">
@@ -860,7 +1123,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
             </div>
 
         </div>
-
 
         <div class="col-md-6 col-lg-3">
 
@@ -884,10 +1146,7 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
     </div>
 
-
-    <!-- =================================================
-         ACCIONES RÁPIDAS
-    ================================================= -->
+   
 
     <div class="mb-4">
 
@@ -897,11 +1156,7 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
         <div class="row g-4">
 
-
-            <!-- ==========================================
-                 NUEVO ENVÍO
-                 AHORA MANDA A agregar_envio.php
-            =========================================== -->
+            <!-- NUEVO ENVÍO -->
 
             <div class="col-md-6 col-lg-3">
 
@@ -924,10 +1179,7 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
             </div>
 
-
-            <!-- ==========================================
-                 NUEVO CLIENTE
-            =========================================== -->
+            
 
             <div class="col-md-6 col-lg-3">
 
@@ -951,10 +1203,7 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
             </div>
 
-
-            <!-- ==========================================
-                 REPARTIDORES
-            =========================================== -->
+           
 
             <div class="col-md-6 col-lg-3">
 
@@ -977,10 +1226,7 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
             </div>
 
-
-            <!-- ==========================================
-                 REPORTES
-            =========================================== -->
+            
 
             <div class="col-md-6 col-lg-3">
 
@@ -1007,10 +1253,7 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
     </div>
 
-
-    <!-- =================================================
-         ENVÍOS RECIENTES
-    ================================================= -->
+  
 
     <div
         class="section-card mb-4"
@@ -1036,7 +1279,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
             </a>
 
         </div>
-
 
         <div class="table-responsive">
 
@@ -1077,7 +1319,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
                     </tr>
 
                 </thead>
-
 
                 <tbody>
 
@@ -1215,10 +1456,7 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
     </div>
 
-
-    <!-- =================================================
-         CLIENTES
-    ================================================= -->
+    
 
     <div
         class="section-card mb-4"
@@ -1248,7 +1486,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
             </button>
 
         </div>
-
 
         <div class="table-responsive">
 
@@ -1347,10 +1584,7 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
     </div>
 
-
-    <!-- =================================================
-         REPARTIDORES
-    ================================================= -->
+   
 
     <div
         class="section-card mb-4"
@@ -1368,7 +1602,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
             </h5>
 
         </div>
-
 
         <div class="table-responsive">
 
@@ -1476,45 +1709,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
     </div>
 
 
-    <!-- =================================================
-         SEGUIMIENTO
-    ================================================= -->
-
-    <div
-        class="section-card mb-4"
-        id="seguimiento"
-    >
-
-        <div class="section-header">
-
-            <h5>
-
-                <i class="bi bi-geo-alt"></i>
-
-                Seguimiento
-
-            </h5>
-
-        </div>
-
-        <div class="p-4">
-
-            <p class="text-muted mb-0">
-
-                Desde aquí podrás consultar el estado de los
-                envíos registrados en el sistema.
-
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         REPORTES
-    ================================================= -->
-
     <div
         class="section-card mb-4"
         id="reportes"
@@ -1601,46 +1795,8 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
     </div>
 
-
-    <!-- =================================================
-         CONFIGURACIÓN
-    ================================================= -->
-
-    <div
-        class="section-card mb-4"
-        id="configuracion"
-    >
-
-        <div class="section-header">
-
-            <h5>
-
-                <i class="bi bi-gear"></i>
-
-                Configuración
-
-            </h5>
-
-        </div>
-
-        <div class="p-4">
-
-            <p class="text-muted mb-0">
-
-                Configuración del sistema de logística.
-
-            </p>
-
-        </div>
-
-    </div>
-
 </div>
 
-
-<!-- =====================================================
-     MODAL NUEVO CLIENTE
-===================================================== -->
 
 <div
     class="modal fade"
@@ -1671,7 +1827,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
             </div>
 
-
             <form method="POST">
 
                 <div class="modal-body">
@@ -1681,7 +1836,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
                         name="accion"
                         value="agregar_cliente"
                     >
-
 
                     <div class="mb-3">
 
@@ -1697,8 +1851,23 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
                         >
 
                     </div>
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Cedula
+                        </label>  
+
+                        <input
+                            type="text"
+                            name="cedula"
+                            class="form-control"
+                            placeholder="Ejemplo: 001-000000-0000A"
+                        >
 
 
+
+                    </div>
+                    
                     <div class="mb-3">
 
                         <label class="form-label">
@@ -1713,7 +1882,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 
                     </div>
 
-
                     <div class="mb-3">
 
                         <label class="form-label">
@@ -1727,7 +1895,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
                         >
 
                     </div>
-
 
                     <div class="mb-3">
 
@@ -1744,7 +1911,6 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
                     </div>
 
                 </div>
-
 
                 <div class="modal-footer">
 
@@ -1778,47 +1944,108 @@ if (isset($_GET["exportar"]) && $_GET["exportar"] === "csv") {
 </div>
 
 
-<!-- =====================================================
-     BOOTSTRAP
-===================================================== -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
 
 
+
 <script>
 
-    /* ==========================================
-       MENÚ PARA CELULAR
-    ========================================== */
+document.addEventListener("DOMContentLoaded", function () {
 
-    function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const btnMenu = document.getElementById("btnMenu");
+    const menuOverlay = document.getElementById("menuOverlay");
 
-        const sidebar = document.getElementById("sidebar");
 
-        sidebar.classList.toggle("show");
+    function abrirMenu() {
+
+        sidebar.classList.add("menu-abierto");
+
+        menuOverlay.classList.add("activo");
+
     }
 
 
-    /* ==========================================
-       CERRAR ALERTAS AUTOMÁTICAMENTE
-    ========================================== */
+    function cerrarMenu() {
 
-    setTimeout(function () {
+        sidebar.classList.remove("menu-abierto");
 
-        const alertas = document.querySelectorAll(".alert");
+        menuOverlay.classList.remove("activo");
 
-        alertas.forEach(function (alerta) {
+    }
 
-            const instancia =
-                bootstrap.Alert.getOrCreateInstance(alerta);
 
-            instancia.close();
+
+
+    btnMenu.addEventListener("click", function () {
+
+        if (sidebar.classList.contains("menu-abierto")) {
+
+            cerrarMenu();
+
+        } else {
+
+            abrirMenu();
+
+        }
+
+    });
+
+
+
+    menuOverlay.addEventListener("click", function () {
+
+        cerrarMenu();
+
+    });
+
+
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            cerrarMenu();
+
+        }
+
+    });
+
+
+    document.querySelectorAll(".sidebar .nav-link").forEach(function (enlace) {
+
+        enlace.addEventListener("click", function () {
+
+            cerrarMenu();
 
         });
 
-    }, 5000);
+    });
+
+});
+
+</script>
+
+
+<script>
+
+setTimeout(function () {
+
+    const alertas = document.querySelectorAll(".alert");
+
+    alertas.forEach(function (alerta) {
+
+        const instancia =
+            bootstrap.Alert.getOrCreateInstance(alerta);
+
+        instancia.close();
+
+    });
+
+}, 5000);
 
 </script>
 

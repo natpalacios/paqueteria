@@ -1,4 +1,3 @@
-```php
 <?php
 
 session_start();
@@ -30,24 +29,19 @@ if ($resultado->num_rows === 1) {
 
     $usuarioBD = $resultado->fetch_assoc();
 
-    /*
-     * Por ahora mantenemos la misma forma de
-     * comprobar la contraseña que ya utilizas.
-     */
+   
     if ($password === $usuarioBD["password"]) {
 
-        // Guardar datos del usuario en la sesión
+        
         $_SESSION["id"] = $usuarioBD["id"];
         $_SESSION["nombre"] = $usuarioBD["nombre"];
         $_SESSION["usuario"] = $usuarioBD["usuario"];
         $_SESSION["rol"] = $usuarioBD["rol"];
 
-        // Guardar el ID del repartidor
+        
         $_SESSION["repartidor_id"] = $usuarioBD["repartidor_id"];
 
-        /*
-         * REDIRECCIÓN SEGÚN EL ROL
-         */
+       
 
         if ($usuarioBD["rol"] === "Supervisor") {
 
@@ -61,10 +55,7 @@ if ($resultado->num_rows === 1) {
 
         } elseif ($usuarioBD["rol"] === "Repartidor") {
 
-            /*
-             * Verificamos que el usuario realmente
-             * tenga un repartidor asociado.
-             */
+          
             if (empty($usuarioBD["repartidor_id"])) {
                 die("Este usuario no tiene un repartidor asociado.");
             }
@@ -95,4 +86,4 @@ $stmt->close();
 $conexion->close();
 
 ?>
-```
+
