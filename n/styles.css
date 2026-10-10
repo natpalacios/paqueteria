@@ -1,0 +1,598 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f9fc;
+    color: #17213c;
+}
+
+.contenedor {
+    max-width: 1320px;
+    margin: 14px auto;
+    padding: 0 12px;
+}
+
+.panel {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 24px;
+}
+
+.registro,
+.estados,
+.modal {
+    background: white;
+    border: 1px solid #b8cceb;
+    border-radius: 16px;
+}
+
+.registro,
+.estados {
+    padding: 20px 26px;
+}
+
+h1,
+h2,
+h3 {
+    color: #123f9a;
+}
+
+h1 {
+    font-size: 25px;
+    text-align: center;
+    margin: 0 0 28px;
+}
+
+h1 span,
+h2 small {
+    font-weight: normal;
+}
+
+.punto {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin: 20px 0;
+}
+
+.punto p {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.45;
+    color: #111;
+}
+
+.punto strong {
+    color: #123f9a;
+}
+
+.icono {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+}
+
+.azul {
+    background: #1649b5;
+}
+
+
+/* =====================================
+   ESTADOS FINALES
+===================================== */
+
+.estados {
+    padding: 25px 20px;
+}
+
+.estados h2 {
+    text-align: center;
+    margin: 0 0 25px;
+    font-size: 24px;
+    line-height: 1.4;
+}
+
+
+/* Tarjetas de estados */
+
+.estado {
+    width: 100%;
+    min-height: 64px;
+
+    border: 1px solid #c7d1e5;
+    border-radius: 12px;
+
+    padding: 12px 16px;
+    margin: 16px 0;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    cursor: pointer;
+    user-select: none;
+
+    transition: all 0.3s ease;
+}
+
+
+/* Iconos de los estados */
+
+.estado span {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    color: white;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 28px;
+}
+
+
+/* Colores originales */
+
+.verde span {
+    background: #0ba34a;
+}
+
+.naranja span {
+    background: #ff9d00;
+}
+
+.rojo span {
+    background: #ed1717;
+}
+
+.gris span {
+    background: #777;
+}
+
+
+/* Efecto al pasar el mouse */
+
+.estado:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 4px 12px rgba(18, 63, 154, 0.20);
+}
+
+
+/* Estado seleccionado */
+
+.estado.seleccionado {
+    border: 3px solid #123f9a;
+
+    background-color: #e8f0ff;
+
+    box-shadow:
+        0 0 12px rgba(18, 63, 154, 0.35);
+
+    transform: scale(1.02);
+}
+
+
+/* Texto de selección */
+
+.estado.seleccionado::after {
+    content: "";
+}
+
+/* Resaltar únicamente el estado seleccionado */
+
+.estado.seleccionado {
+    border: 3px solid #123f9a;
+    background-color: #e8f0ff;
+    box-shadow: 0 0 12px rgba(18, 63, 154, 0.35);
+    transform: scale(1.02);
+}
+
+
+/* =====================================
+   MODAL
+===================================== */
+
+.modal {
+    margin-top: 14px;
+    overflow: hidden;
+}
+
+.modal-titulo {
+    border-bottom: 1px solid #b8cceb;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 8px 20px;
+}
+
+.modal-titulo h2 {
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 22px;
+}
+
+.cerrar {
+    border: 0;
+    background: transparent;
+    color: #123f9a;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+#textoViaje {
+    border: 1px solid #b8cceb;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #123f9a;
+    font-size: 18px;
+    font-weight: bold;
+    width: 160px;
+}
+.contenido-modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 20px 15px;
+    align-items: start;
+}
+
+.columna {
+    min-width: 0;
+    width: 100%;
+}
+
+.izquierda {
+    border-right: 1px solid #d8deeb;
+    padding-right: 20px;
+}
+
+.columna h3 {
+    font-size: 19px;
+    margin: 14px 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0;
+}
+
+label input[type="text"],
+label input[type="datetime-local"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+
+    border: 1px solid #c5d0e4;
+    border-radius: 7px;
+
+    margin-top: 5px;
+
+    font: inherit;
+    color: #202a40;
+    background: white;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #dbe2ef;
+    margin: 18px 0;
+}
+
+.opciones-dos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.opcion-radio {
+    min-width: 0;
+    width: 100%;
+    border: 1px solid #c5d0e4;
+    border-radius: 9px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    overflow-wrap: break-word;
+}
+
+.opcion-radio input {
+    accent-color: #1649b5;
+}
+
+.circulo {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    color: white;
+
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+}
+
+.circulo.verde {
+    background: #0ba34a;
+}
+
+.circulo.gris {
+    background: #777;
+}
+
+#firmaCanvas {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 120px;
+}
+.btn-secundario {
+    padding: 7px 12px;
+
+    border: 1px solid #1649b5;
+    border-radius: 6px;
+
+    background: white;
+    color: #1649b5;
+
+    cursor: pointer;
+}
+
+.pestanas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.pestana {
+    padding: 11px;
+
+    background: white;
+
+    border: 1px solid #c5d0e4;
+    border-radius: 6px;
+
+    color: #17213c;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.pestana.activa {
+    background: #e9f1ff;
+    border-color: #548bf0;
+    color: #123f9a;
+}
+
+.vista-tab {
+    display: none;
+}
+
+.vista-tab.activa {
+    display: block;
+}
+
+.evidencia {
+    min-height: 210px;
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    margin-top: 10px;
+}
+
+.imagen-referencia {
+    min-height: 210px;
+
+    display: grid;
+    place-content: center;
+
+    text-align: center;
+
+    font-size: 75px;
+
+    background: linear-gradient(
+        135deg,
+        #d7e3d0,
+        #c4b59e
+    );
+
+    color: #704e2b;
+}
+
+.imagen-referencia span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.subir-foto {
+    font-weight: normal;
+}
+
+.preview-imagen {
+    display: none;
+
+    max-width: 100%;
+    max-height: 230px;
+
+    border-radius: 8px;
+
+    margin: 8px 0;
+}
+
+.estado-paquete {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+}
+
+.estado-paquete label {
+    border: 1px solid #c5d0e4;
+    border-radius: 7px;
+
+    padding: 10px;
+
+    text-align: center;
+
+    font-weight: normal;
+}
+
+.estado-paquete input {
+    accent-color: #1649b5;
+}
+
+.acciones {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 18px;
+
+    padding: 14px 30px;
+
+    border-top: 1px solid #d8deeb;
+}
+
+.acciones button {
+    min-width: 125px;
+
+    padding: 12px 25px;
+
+    border-radius: 7px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background: white;
+
+    color: #123f9a;
+
+    border: 1px solid #123f9a;
+}
+
+.btn-guardar {
+    background: #1249bd;
+
+    color: white;
+
+    border: 1px solid #1249bd;
+}
+
+.mensaje {
+    position: fixed;
+
+    right: 20px;
+    bottom: 20px;
+
+    background: #123f9a;
+
+    color: white;
+
+    padding: 15px 20px;
+
+    border-radius: 8px;
+
+    display: none;
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1100px) {
+
+    .panel {
+        grid-template-columns: 1fr;
+    }
+
+    .estados {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 12px;
+    }
+
+    .estados h2 {
+        grid-column: 1 / -1;
+    }
+
+    .estado {
+        margin: 0;
+    }
+
+}
+
+@media (max-width: 900px) {
+    .contenido-modal {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 15px 15px;
+    }
+
+    .izquierda {
+        border-right: 0;
+        border-bottom: 1px solid #d8deeb;
+        padding-right: 0;
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .estados {
+        grid-template-columns: 1fr;
+    }
+
+    .estado {
+        font-size: 16px;
+    }
+
+    .estado.seleccionado::after {
+        font-size: 11px;
+    }
+
+    .opciones-dos {
+        grid-template-columns: 1fr;
+    }
+
+    .estado-paquete {
+        grid-template-columns: 1fr;
+    }
+
+
+}

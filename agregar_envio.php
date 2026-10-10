@@ -111,25 +111,7 @@ $conexion->close();
             </div>
 
 
-                <div class="campo">
-
-                    <label>
-                        Repartidor *
-                    </label>
-
-                    <select
-                        id="repartidor_id"
-                        name="repartidor_id"
-                        required
-                    >
-
-                        <option value="">
-                            Cargando repartidores...
-                        </option>
-
-                    </select>
-
-                </div>
+               
 
 
                 <div class="campo">
@@ -294,7 +276,26 @@ $conexion->close();
                         required
                     ></textarea>
 
+                </div> <div class="campo">
+
+                    <label>
+                        Repartidor *
+                    </label>
+
+                    <select
+                        id="repartidor_id"
+                        name="repartidor_id"
+                        required
+                    >
+
+                        <option value="">
+                            Cargando repartidores...
+                        </option>
+
+                    </select>
+
                 </div>
+                
 
 
             </div>
@@ -331,32 +332,19 @@ $conexion->close();
                 <div class="campo">
 
                     <label>
-                        Código / identificación
+                        Cedula
                     </label>
 
                     <input
                         type="text"
                         name="responsable_codigo"
-                        placeholder="Ej. CED-001"
+                        placeholder="Ej. 001-000000-0000N"
                     >
 
                 </div>
 
 
-                <div class="campo">
-
-                    <label>
-                        Vehículo responsable
-                    </label>
-
-                    <input
-                        type="text"
-                        name="responsable_vehiculo"
-                        id="responsable_vehiculo"
-                        placeholder="Vehículo"
-                    >
-
-                </div>
+               
 
 
             </div>
