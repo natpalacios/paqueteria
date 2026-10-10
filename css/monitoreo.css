@@ -1342,3 +1342,220 @@ body {
     }
 
 }
+
+/* =========================================
+   MENÚ LATERAL
+========================================= */
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #0d47a1 0%,
+        #082b5c 100%
+    );
+
+    color: #ffffff;
+
+    z-index: 2000;
+
+    transition: left 0.3s ease;
+
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.25);
+}
+
+
+/* CUANDO EL MENÚ ESTÁ ABIERTO */
+
+.side-menu.active {
+    left: 0;
+}
+
+
+/* CONTENIDO */
+
+.menu-content {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* CABECERA */
+
+.menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 25px 20px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+
+/* NOMBRE DE LA EMPRESA */
+
+.menu-header h5 {
+    margin: 0 0 5px 0;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+
+/* SUBTÍTULO */
+
+.company-subtitle {
+    font-size: 13px;
+    color: #cbdcf5;
+
+    letter-spacing: 0.4px;
+}
+
+
+/* BOTÓN CERRAR */
+
+.menu-close {
+    border: none;
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 30px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    padding: 0 5px;
+
+    opacity: 0.9;
+}
+
+.menu-close:hover {
+    opacity: 1;
+}
+
+
+/* CONTENEDOR DE OPCIONES */
+
+.menu-container {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    padding: 20px 15px;
+}
+
+
+/* ENLACES */
+
+.menu-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 14px 16px;
+
+    color: #eaf2ff;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    border-radius: 10px;
+
+    border: 1px solid transparent;
+
+    transition: all 0.25s ease;
+}
+
+
+/* ICONOS */
+
+.menu-link span:first-child {
+    width: 24px;
+
+    text-align: center;
+
+    font-size: 19px;
+}
+
+
+/* HOVER */
+
+.menu-link:hover {
+    background: rgba(255, 255, 255, 0.14);
+
+    color: #ffffff;
+
+    border-color: rgba(255, 255, 255, 0.12);
+
+    transform: translateX(4px);
+}
+
+
+/* OVERLAY */
+
+.menu-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    z-index: 1900;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: all 0.3s ease;
+}
+
+
+/* OVERLAY ACTIVO */
+
+.menu-overlay.active {
+    opacity: 1;
+
+    visibility: visible;
+}
+
+
+/* CELULARES */
+
+@media (max-width: 480px) {
+
+    .side-menu {
+        width: 260px;
+        left: -280px;
+    }
+
+    .side-menu.active {
+        left: 0;
+    }
+
+    .menu-header {
+        padding: 20px 15px;
+    }
+
+    .menu-link {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

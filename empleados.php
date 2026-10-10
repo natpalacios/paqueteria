@@ -150,7 +150,7 @@ $cargo_clase = [
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Empleados · Grupo S.A Logistic</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/empleado.css">
 </head>
 <body>
 

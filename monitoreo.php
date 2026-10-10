@@ -213,6 +213,7 @@ foreach ($envios as $envio) {
         href="css/monitoreo.css"
     >
 
+
 </head>
 
 
@@ -321,90 +322,66 @@ foreach ($envios as $envio) {
 </header>
 
 
+<aside id="sideMenu" class="side-menu">
 
-<aside
-    id="sideMenu"
-    class="side-menu"
->
+    <div class="menu-content">
 
+        <div class="menu-header">
 
-    <div class="side-menu-header">
+            <div>
+                <h5>Grupo S.A Logistics</h5>
 
-        <div>
+                <div class="company-subtitle">
+                    Paquetería y Envíos
+                </div>
+            </div>
 
-            <strong>
-                Menú
-            </strong>
-
-            <small>
-                Panel supervisor
-            </small>
+            <button
+                type="button"
+                id="closeMenu"
+                class="menu-close"
+                aria-label="Cerrar menú"
+            >
+                ×
+            </button>
 
         </div>
 
+        <div class="menu-container">
 
-        <button
-            type="button"
-            id="closeMenu"
-            class="close-menu"
-        >
-            ×
-        </button>
+            <a href="admin_usuarios.php" class="menu-link">
+                <span>📍</span>
+                <span>Usuario</span>
+            </a>
+
+            <a href="clientes.php" class="menu-link">
+                <span>📦</span>
+                <span>Clientes</span>
+            </a>
+
+            <a href="empleados.php" class="menu-link">
+                <span>❓</span>
+                <span>Empleado</span>
+            </a>
+    
+            <a href="incidencia.php" class="menu-link">
+                <span>👤</span>
+                <span>Incidencia</span>
+            </a>
+             <a href="reporte.php" class="menu-link">
+                <span>👤</span>
+                <span>Reporte</span>
+            </a>
+
+            <a href="logout.php" class="menu-link">
+                <span>↪</span>
+                <span>Cerrar sesión</span>
+            </a>
+
+        </div>
 
     </div>
-
-
-    <nav class="side-navigation">
-
-
-        <a
-            href="supervisor.php"
-            class="menu-option"
-        >
-
-            <span>🏠</span>
-
-            <div>
-
-                <strong>
-                    Inicio
-                </strong>
-
-                <small>
-                    Panel principal
-                </small>
-
-            </div>
-
-        </a>
-
-
-        <a
-            href="monitoreo.php"
-            class="menu-option active"
-        >
-
-            <span>📍</span>
-
-            <div>
-
-                <strong>
-                    Rastreo
-                </strong>
-
-                <small>
-                    Monitorear envíos
-                </small>
-
-            </div>
-
-        </a>
-
-
-       
-
-    </nav>
-
+        
 </aside>
 
 

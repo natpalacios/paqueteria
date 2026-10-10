@@ -2049,14 +2049,18 @@ foreach ($envios as $e) {
 
 
                 </h2>
+                
+                <button
+                    type="button"
+                    id="clearRoute"
+                    class="btn-secondary"
+                >
 
+                    Limpiar ruta
 
+                </button>
 
-                <span class="badge bg-light text-dark">
-
-                    OpenStreetMap
-
-                </span>
+              
 
 
 

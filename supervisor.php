@@ -22,7 +22,7 @@ require_once "config.php";
 </head>
 
 <body>
-
+  
 <div class="supervisor-container">
 
     <header class="supervisor-header">

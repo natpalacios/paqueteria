@@ -6,7 +6,7 @@
 
     <title>Reportes</title>
 
-    <link rel="stylesheet" href="reporte.css">
+    <link rel="stylesheet" href="css/reporte.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet"
@@ -17,16 +17,84 @@
 
 <main class="contenido">
 
-    <section class="titulo">
+<button id="openMenu" class="btn-menu">
+    <i class="fa-solid fa-bars"></i>
+</button>
 
-        <div class="titulo-icono">
-            <i class="fa-solid fa-file-lines"></i>
+ <section class="titulo">
+
+    <div class="titulo-icono">
+        <i class="fa-solid fa-file-lines"></i>
+    </div>
+
+    <div>
+        <h1>Reportes</h1>
+        <p>Consulte información detallada sobre paquetes, incidencias y entregas.</p>
+    </div>
+
+</section>
+
+<!-- MENÚ LATERAL -->
+<aside id="sideMenu" class="side-menu">
+
+    <div class="menu-content">
+
+        <div class="menu-header">
+
+            <div>
+                <h5>Grupo S.A Logistics</h5>
+                <div class="company-subtitle">
+                    Paquetería y Envíos
+                </div>
+            </div>
+
+            <button
+                type="button"
+                id="closeMenu"
+                class="menu-close"
+                aria-label="Cerrar menú">
+                ×
+            </button>
+
         </div>
 
-        <div>
-            <h1>Reportes</h1>
-            <p>Consulte información detallada sobre paquetes, incidencias y entregas.</p>
+        <div class="menu-container">
+
+            <a href="admin_usuarios.php" class="menu-link">
+                <span>📍</span>
+                <span>Usuario</span>
+            </a>
+
+            <a href="clientes.php" class="menu-link">
+                <span>📦</span>
+                <span>Clientes</span>
+            </a>
+
+            <a href="empleados.php" class="menu-link">
+                <span>❓</span>
+                <span>Empleado</span>
+            </a>
+
+            <a href="incidencia.php" class="menu-link">
+                <span>👤</span>
+                <span>Incidencia</span>
+            </a>
+
+            <a href="reporte.php" class="menu-link">
+                <span>📊</span>
+                <span>Reporte</span>
+            </a>
+
+            <a href="logout.php" class="menu-link">
+                <span>↪</span>
+                <span>Cerrar sesión</span>
+            </a>
+
         </div>
+
+    </div>
+
+</aside>
 
     </section>
 
@@ -703,7 +771,7 @@
     </div>
 
 </main>
-<script src="incidencias.js"></script>
+<script src="js/incidencias.js"></script>
 
 </body>
 </html>

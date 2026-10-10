@@ -143,24 +143,13 @@ $roles_clase = [
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Administración de usuarios · Grupo S.A Logistic</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/usuario.css">
 </head>
 <body>
 
-<nav class="side-nav">
-  <a href="#" class="nav-item"><span class="ico">🏠</span> Inicio</a>
-  <div class="nav-group">
-    <span class="nav-item nav-parent"><span class="ico">👤</span> Usuarios <span class="chevron">▾</span></span>
-    <a href="admin_usuarios.php" class="nav-subitem active">Administrar usuarios</a>
-  </div>
-  <a href="#" class="nav-item"><span class="ico">👥</span> Clientes</a>
-  <a href="#" class="nav-item"><span class="ico">📦</span> Paquetes</a>
-  <a href="#" class="nav-item"><span class="ico">📍</span> Seguimiento</a>
-  <a href="#" class="nav-item"><span class="ico">🧑‍💼</span> Empleados</a>
-  <a href="#" class="nav-item"><span class="ico">📄</span> Reportes</a>
-  <div class="nav-spacer"></div>
-  <a href="#" class="nav-item nav-logout"><span class="ico">⏻</span> Cerrar sesión</a>
-</nav>
+<button id="openMenu" class="btn-menu">
+    <i class="fa-solid fa-bars"></i>
+</button>
 
 <main>
   <header class="page-head">
