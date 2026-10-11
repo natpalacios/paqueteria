@@ -154,17 +154,42 @@ $cargo_clase = [
 </head>
 <body>
 
-<nav class="side-nav">
-  <a href="#" class="nav-item"><span class="ico">🏠</span> Inicio</a>
-  <a href="#" class="nav-item"><span class="ico">👤</span> Usuarios</a>
-  <a href="#" class="nav-item"><span class="ico">👥</span> Clientes</a>
-  <a href="#" class="nav-item"><span class="ico">📦</span> Paquetes</a>
-  <a href="#" class="nav-item"><span class="ico">📍</span> Seguimiento</a>
-  <a href="empleados.php" class="nav-item active"><span class="ico">👨‍👩‍👧</span> Empleados</a>
-  <a href="#" class="nav-item"><span class="ico">📄</span> Reportes</a>
-  <div class="nav-spacer"></div>
-  <a href="#" class="nav-item nav-logout"><span class="ico">⏻</span> Cerrar sesión</a>
-</nav>
+<button type="button" class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+<div class="menu-fondo" id="menuFondo"></div>
+
+<aside class="side-menu" id="sideMenu">
+  <div class="menu-content">
+    <div class="menu-header">
+      <div>
+        <h5>Grupo S.A Logistics</h5>
+        <div class="company-subtitle">Paquetería y Envíos</div>
+      </div>
+      <button type="button" class="menu-close" id="menuClose" aria-label="Cerrar menú">×</button>
+    </div>
+
+    <div class="menu-container">
+      <a href="admin_usuarios.php" class="menu-link"><span>👤</span><span>Usuario</span></a>
+      <a href="clientes.php" class="menu-link"><span>👥</span><span>Clientes</span></a>
+      <a href="empleados.php" class="menu-link active"><span>🧑‍💼</span><span>Empleado</span></a>
+      <a href="incidencia.php" class="menu-link"><span>⚠️</span><span>Incidencia</span></a>
+      <a href="reporte.php" class="menu-link"><span>📊</span><span>Reporte</span></a>
+      <a href="logout.php" class="menu-link"><span>↪</span><span>Cerrar sesión</span></a>
+    </div>
+  </div>
+</aside>
+
+<script>
+(function(){
+  var menu = document.getElementById('sideMenu');
+  var fondo = document.getElementById('menuFondo');
+  function abrir(){ menu.classList.add('activo'); fondo.classList.add('activo'); }
+  function cerrar(){ menu.classList.remove('activo'); fondo.classList.remove('activo'); }
+  document.getElementById('menuBtn').addEventListener('click', abrir);
+  document.getElementById('menuClose').addEventListener('click', cerrar);
+  fondo.addEventListener('click', cerrar);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') cerrar(); });
+})();
+</script>
 
 <main>
   <header class="page-head">
@@ -343,4 +368,4 @@ $cargo_clase = [
 </main>
 
 </body>
-</html>
+</html> 
