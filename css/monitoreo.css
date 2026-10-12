@@ -1,1561 +1,944 @@
+
+/* =========================================================
+   GRUPO S.A. LOGISTICS — MONITOREO DE ENVÍOS
+   Diseño unificado: azul oscuro, azul y blanco
+   ========================================================= */
+
+:root {
+    --navy: #0c2c52;
+    --navy-light: #12386a;
+    --blue: #1f5fbf;
+    --blue-dark: #1a4fa0;
+    --bg: #f3f5f9;
+    --card: #ffffff;
+    --text: #1f2430;
+    --muted: #6b7280;
+    --border: #e6e8ee;
+    --green-bg: #e3f7ea;
+    --green-text: #1a9c56;
+    --red-bg: #fde8e6;
+    --red-text: #e0503c;
+    --yellow-bg: #fff4d6;
+    --yellow-text: #946200;
+    --shadow: 0 8px 24px rgba(12, 44, 82, 0.08);
+    --radius: 16px;
+}
+
 * {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     margin: 0;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background: #f4f6f8;
-
-    color: #1f2937;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
 
-/* =========================================================
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* =========================
    BARRA SUPERIOR
-========================================================= */
+   ========================= */
 
 .topbar {
-
-    height: 64px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding: 0 25px;
-
-    background: #ffffff;
-
-    border-bottom:
-        1px solid #e5e7eb;
-
-    position: sticky;
-
+    position: fixed;
+    z-index: 1000;
     top: 0;
-
-    z-index: 2000;
-
+    left: 0;
+    right: 0;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 3px 14px rgba(12, 44, 82, 0.04);
 }
 
+.topbar-left,
+.topbar-right,
+.brand {
+    display: flex;
+    align-items: center;
+}
 
 .topbar-left {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
+    gap: 17px;
 }
-
-
-.topbar-right {
-
-    display: flex;
-
-    align-items: center;
-
-}
-
-
-/* =========================================================
-   HAMBURGUESA
-========================================================= */
-
-.menu-button {
-
-    width: 42px;
-
-    height: 42px;
-
-    border: none;
-
-    background: #f3f4f6;
-
-    border-radius: 8px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 5px;
-
-    cursor: pointer;
-
-}
-
-
-.menu-button:hover {
-
-    background: #e5e7eb;
-
-}
-
-
-.menu-button span {
-
-    display: block;
-
-    width: 21px;
-
-    height: 2px;
-
-    background: #374151;
-
-    border-radius: 5px;
-
-}
-
 
 .brand {
-
-    display: flex;
-
     flex-direction: column;
-
+    align-items: flex-start;
+    line-height: 1.2;
 }
-
 
 .brand strong {
-
-    font-size: 17px;
-
+    color: var(--navy);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
 }
-
 
 .brand span {
-
+    margin-top: 4px;
+    color: var(--muted);
     font-size: 12px;
-
-    color: #6b7280;
-
 }
 
+.topbar-right {
+    gap: 12px;
+}
 
-/* =========================================================
-   CAMPANA
-========================================================= */
+.menu-button {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--navy);
+    transition: background .2s ease, transform .2s ease;
+}
+
+.menu-button:hover {
+    background: var(--blue);
+    transform: translateY(-1px);
+}
+
+.menu-button span {
+    display: block;
+    width: 21px;
+    height: 2px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+/* =========================
+   NOTIFICACIONES
+   ========================= */
 
 .notification-wrapper {
-
     position: relative;
-
 }
-
 
 .notification-button {
-
     position: relative;
-
-    width: 42px;
-
-    height: 42px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: #f3f4f6;
-
-    cursor: pointer;
-
-    font-size: 19px;
-
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: #fff;
+    color: var(--navy);
+    transition: background .2s ease, border-color .2s ease;
 }
-
 
 .notification-button:hover {
-
-    background: #e5e7eb;
-
+    background: #f4f7fc;
+    border-color: #cbd8eb;
 }
 
+.bell-icon {
+    font-size: 19px;
+    line-height: 1;
+}
 
 .notification-badge {
-
-    display: none;
-
     position: absolute;
-
-    top: -3px;
-
-    right: -3px;
-
+    top: -5px;
+    right: -5px;
     min-width: 19px;
-
     height: 19px;
-
     padding: 0 5px;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 20px;
-
-    background: #ef4444;
-
-    color: white;
-
-    font-size: 10px;
-
-    font-weight: bold;
-
-    border: 2px solid white;
-
-}
-
-
-.notification-badge.visible {
-
     display: flex;
-
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    border-radius: 999px;
+    background: var(--red-text);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
 }
-
-
-/* =========================================================
-   PANEL DE NOTIFICACIONES
-========================================================= */
 
 .notification-panel {
-
-    display: none;
-
     position: absolute;
-
-    top: 52px;
-
+    top: calc(100% + 12px);
     right: 0;
-
-    width: 360px;
-
-    max-width: calc(100vw - 30px);
-
-    background: white;
-
-    border:
-        1px solid #e5e7eb;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 15px 40px rgba(
-            0,
-            0,
-            0,
-            .15
-        );
-
+    z-index: 1200;
+    width: min(350px, calc(100vw - 28px));
     overflow: hidden;
-
+    display: none;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    box-shadow: 0 16px 40px rgba(12, 44, 82, .17);
 }
 
-
-.notification-panel.open {
-
+.notification-panel.open,
+.notification-panel.active,
+.notification-panel.activo,
+.notification-panel.show {
     display: block;
-
 }
-
 
 .notification-header {
-
     display: flex;
-
-    justify-content: space-between;
-
     align-items: center;
-
-    padding: 15px;
-
-    border-bottom:
-        1px solid #e5e7eb;
-
+    justify-content: space-between;
+    gap: 12px;
+    padding: 15px 17px;
+    border-bottom: 1px solid var(--border);
 }
 
+.notification-header strong {
+    color: var(--navy);
+    font-size: 14px;
+}
 
 .notification-header button {
-
-    border: none;
-
-    background: transparent;
-
-    color: #2563eb;
-
-    cursor: pointer;
-
-    font-size: 12px;
-
+    padding: 6px 8px;
+    border: 0;
+    border-radius: 7px;
+    background: #edf3fc;
+    color: var(--blue-dark);
+    font-size: 11px;
+    font-weight: 700;
 }
 
+.notification-header button:hover {
+    background: #dfeafa;
+}
 
 .notification-list {
-
-    max-height: 400px;
-
+    max-height: 300px;
     overflow-y: auto;
-
 }
-
 
 .notification-empty {
-
-    padding: 30px 15px;
-
+    padding: 24px 18px;
+    color: var(--muted);
     text-align: center;
-
-    color: #6b7280;
-
     font-size: 13px;
-
 }
 
-
-.notification-item {
-
-    display: flex;
-
-    gap: 12px;
-
-    padding: 14px;
-
-    cursor: pointer;
-
-    border-bottom:
-        1px solid #f0f0f0;
-
-}
-
-
-.notification-item:hover {
-
-    background: #f8fafc;
-
-}
-
-
-.notification-item-icon {
-
-    width: 35px;
-
-    height: 35px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #eff6ff;
-
-    border-radius: 50%;
-
-}
-
-
-.notification-item-content {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 3px;
-
-}
-
-
-.notification-item-content strong {
-
-    font-size: 13px;
-
-}
-
-
-.notification-item-content span {
-
-    font-size: 13px;
-
-    color: #2563eb;
-
-}
-
-
-.notification-item-content small {
-
-    font-size: 11px;
-
-    color: #6b7280;
-
-}
-
-
-/* =========================================================
+/* =========================
    MENÚ LATERAL
-========================================================= */
+   ========================= */
 
 .side-menu {
-
     position: fixed;
-
-    left: 0;
-
+    z-index: 1300;
     top: 0;
-
-    width: 300px;
-
-    height: 100vh;
-
-    background: white;
-
-    z-index: 3000;
-
-    transform:
-        translateX(-100%);
-
-    transition:
-        transform .25s ease;
-
-    box-shadow:
-        5px 0 25px rgba(
-            0,
-            0,
-            0,
-            .12
-        );
-
-}
-
-
-.side-menu.open {
-
-    transform:
-        translateX(0);
-
-}
-
-
-.side-menu-header {
-
-    height: 75px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding: 0 20px;
-
-    border-bottom:
-        1px solid #e5e7eb;
-
-}
-
-
-.side-menu-header div {
-
-    display: flex;
-
-    flex-direction: column;
-
-}
-
-
-.side-menu-header small {
-
-    margin-top: 3px;
-
-    color: #6b7280;
-
-}
-
-
-.close-menu {
-
-    width: 35px;
-
-    height: 35px;
-
-    border: none;
-
-    border-radius: 7px;
-
-    background: #f3f4f6;
-
-    font-size: 24px;
-
-    cursor: pointer;
-
-    color: #374151;
-
-}
-
-
-.side-navigation {
-
-    padding: 15px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-
-}
-
-
-.menu-option {
-
-    width: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    padding: 13px;
-
-    text-decoration: none;
-
-    border: none;
-
-    background: transparent;
-
-    border-radius: 9px;
-
-    color: #374151;
-
-    cursor: pointer;
-
-    text-align: left;
-
-}
-
-
-.menu-option:hover {
-
-    background: #f3f4f6;
-
-}
-
-
-.menu-option.active {
-
-    background: #eff6ff;
-
-    color: #2563eb;
-
-}
-
-
-.menu-option > span {
-
-    width: 32px;
-
-    height: 32px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    border-radius: 8px;
-
-    background: #f3f4f6;
-
-}
-
-
-.menu-option.active > span {
-
-    background: white;
-
-}
-
-
-.menu-option div {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 3px;
-
-}
-
-
-.menu-option small {
-
-    color: #6b7280;
-
-    font-size: 11px;
-
-}
-
-
-.menu-option-button {
-
-    font-family: inherit;
-
-    font-size: inherit;
-
-}
-
-
-/* =========================================================
-   OVERLAY
-========================================================= */
-
-.menu-overlay {
-
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            .35
-        );
-
-    z-index: 2500;
-
-    display: none;
-
-}
-
-
-.menu-overlay.visible {
-
-    display: block;
-
-}
-
-
-/* =========================================================
-   CONTENIDO
-========================================================= */
-
-.monitor-container {
-
-    padding: 20px 25px;
-
-}
-
-
-/* =========================================================
-   ESTADÍSTICAS
-========================================================= */
-
-.stats-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            4,
-            1fr
-        );
-
-    gap: 15px;
-
-    margin-bottom: 20px;
-
-}
-
-
-.stat-card {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    padding: 17px;
-
-    background: white;
-
-    border-radius: 10px;
-
-    border:
-        1px solid #e5e7eb;
-
-}
-
-
-.stat-icon {
-
-    width: 40px;
-
-    height: 40px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 9px;
-
-    background: #f3f4f6;
-
-}
-
-
-.stat-card > div:last-child {
-
-    display: flex;
-
-    flex-direction: column;
-
-}
-
-
-.stat-title {
-
-    font-size: 11px;
-
-    color: #6b7280;
-
-}
-
-
-.stat-card strong {
-
-    font-size: 22px;
-
-    margin-top: 2px;
-
-}
-
-
-.stat-card small {
-
-    font-size: 10px;
-
-    color: #9ca3af;
-
-}
-
-
-/* =========================================================
-   MAPA + FLOTAS
-========================================================= */
-
-.monitor-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        2.35fr
-        .95fr;
-
-    gap: 15px;
-
-}
-
-
-.map-panel {
-
-    background: white;
-
-    border-radius: 10px;
-
-    overflow: hidden;
-
-    border:
-        1px solid #e5e7eb;
-
-}
-
-
-.panel-header {
-
-    min-height: 62px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 12px 17px;
-
-    border-bottom:
-        1px solid #e5e7eb;
-
-}
-
-
-.panel-header h2 {
-
-    margin: 0 0 3px;
-
-    font-size: 16px;
-
-}
-
-
-.panel-header p {
-
-    margin: 0;
-
-    color: #6b7280;
-
-    font-size: 11px;
-
-}
-
-
-#map {
-
-    width: 100%;
-
-    height: 610px;
-
-}
-
-
-/* =========================================================
-   BOTÓN
-========================================================= */
-
-.btn-secondary {
-
-    border: none;
-
-    background: #f3f4f6;
-
-    color: #374151;
-
-    padding: 8px 11px;
-
-    border-radius: 7px;
-
-    cursor: pointer;
-
-    white-space: nowrap;
-
-}
-
-
-.btn-secondary:hover {
-
-    background: #e5e7eb;
-
-}
-
-
-/* =========================================================
-   PANEL DERECHO
-========================================================= */
-
-.fleet-panel {
-
-    height: 672px;
-
+    bottom: 0;
+    left: 0;
+    width: 275px;
+    max-width: calc(100vw - 48px);
     overflow-y: auto;
-
-    background: white;
-
-    border-radius: 10px;
-
-    border:
-        1px solid #e5e7eb;
-
-}
-
-
-.fleet-header {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding: 14px;
-
-    border-bottom:
-        1px solid #e5e7eb;
-
-}
-
-
-.fleet-header h2 {
-
-    margin: 0;
-
-    font-size: 15px;
-
-}
-
-
-.fleet-header small {
-
-    color: #9ca3af;
-
-    font-size: 10px;
-
-}
-
-
-.fleet-header > span {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-width: 28px;
-
-    height: 24px;
-
-    border-radius: 20px;
-
-    background: #eff6ff;
-
-    color: #2563eb;
-
-    font-size: 11px;
-
-    font-weight: bold;
-
-}
-
-
-/* =========================================================
-   TABS
-========================================================= */
-
-.tabs {
-
-    display: flex;
-
-    border-bottom:
-        1px solid #e5e7eb;
-
-}
-
-
-.tab {
-
-    flex: 1;
-
-    border: none;
-
-    background: white;
-
-    color: #6b7280;
-
-    padding: 9px 4px;
-
-    font-size: 10px;
-
-    cursor: pointer;
-
-}
-
-
-.tab.active {
-
-    color: #2563eb;
-
-    border-bottom:
-        2px solid #2563eb;
-
-}
-
-
-/* =========================================================
-   TARJETAS
-========================================================= */
-
-.vehicle-card {
-
-    margin: 9px;
-
-    padding: 11px;
-
-    border:
-        1px solid #edf0f3;
-
-    border-radius: 8px;
-
-    background: white;
-
-}
-
-
-.vehicle-card.hidden {
-
-    display: none;
-
-}
-
-
-.vehicle-card:hover {
-
-    border-color: #d1d5db;
-
-}
-
-
-.vehicle-card-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 10px;
-
-}
-
-
-.vehicle-code {
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-}
-
-
-.status-badge {
-
-    display: inline-block;
-
-    margin-left: 5px;
-
-    padding: 3px 6px;
-
-    border-radius: 20px;
-
-    font-size: 8px;
-
-    font-weight: bold;
-
-}
-
-
-.status-en-ruta {
-
-    background: #dcfce7;
-
-    color: #166534;
-
-}
-
-
-.status-pendiente {
-
-    background: #fef3c7;
-
-    color: #92400e;
-
-}
-
-
-.status-entregado {
-
-    background: #dcfce7;
-
-    color: #166534;
-
-}
-
-
-.status-cancelado {
-
-    background: #fee2e2;
-
-    color: #991b1b;
-
-}
-
-
-/* =========================================================
-   INFO
-========================================================= */
-
-.vehicle-info {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 6px;
-
-}
-
-
-.info-row {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    font-size: 10px;
-
-}
-
-
-.info-row span {
-
-    color: #9ca3af;
-
-}
-
-
-.info-row strong {
-
-    max-width: 65%;
-
-    text-align: right;
-
-    word-break: break-word;
-
-}
-
-
-/* =========================================================
-   BOTÓN RUTA
-========================================================= */
-
-.card-actions {
-
-    margin-top: 9px;
-
-}
-
-
-.locate-btn {
-
-    width: 100%;
-
-    border: none;
-
-    background: #2563eb;
-
-    color: white;
-
-    border-radius: 6px;
-
-    padding: 7px;
-
-    cursor: pointer;
-
-    font-size: 10px;
-
-    font-weight: bold;
-
-}
-
-
-.locate-btn:hover {
-
-    background: #1d4ed8;
-
-}
-
-
-/* =========================================================
-   NOTIFICACIÓN DESTACADA
-========================================================= */
-
-.notification-highlight {
-
-    animation:
-        notificationPulse 2.5s ease;
-
-}
-
-
-@keyframes notificationPulse {
-
-    0% {
-
-        box-shadow:
-            0 0 0 0
-            rgba(
-                37,
-                99,
-                235,
-                .7
-            );
-
-    }
-
-    50% {
-
-        box-shadow:
-            0 0 0 8px
-            rgba(
-                37,
-                99,
-                235,
-                .12
-            );
-
-    }
-
-    100% {
-
-        box-shadow:
-            0 0 0 0
-            rgba(
-                37,
-                99,
-                235,
-                0
-            );
-
-    }
-
-}
-
-
-/* =========================================================
-   VACÍO
-========================================================= */
-
-.empty-message {
-
-    display: none;
-
-    padding: 30px;
-
-    text-align: center;
-
-    color: #6b7280;
-
-}
-
-
-.empty-message.visible {
-
-    display: block;
-
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (
-    max-width: 1100px
-) {
-
-    .stats-grid {
-
-        grid-template-columns:
-            repeat(
-                2,
-                1fr
-            );
-
-    }
-
-
-    .monitor-grid {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .fleet-panel {
-
-        height: 600px;
-
-    }
-
-}
-
-
-@media (
-    max-width: 650px
-) {
-
-    .monitor-container {
-
-        padding: 12px;
-
-    }
-
-
-    .stats-grid {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .topbar {
-
-        padding: 0 12px;
-
-    }
-
-
-    #map {
-
-        height: 450px;
-
-    }
-
-
-    .panel-header {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-    }
-
-}
-
-/* =========================================
-   MENÚ LATERAL
-========================================= */
-
-.side-menu {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    width: 280px;
-    height: 100vh;
-
-    background: linear-gradient(
-        180deg,
-        #0d47a1 0%,
-        #082b5c 100%
-    );
-
-    color: #ffffff;
-
-    z-index: 2000;
-
-    transition: left 0.3s ease;
-
-    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.25);
-}
-
-
-/* CUANDO EL MENÚ ESTÁ ABIERTO */
-
-.side-menu.active {
-    left: 0;
-}
-
-
-/* CONTENIDO */
-
-.menu-content {
-    width: 100%;
-    height: 100%;
-}
-
-
-/* CABECERA */
-
-.menu-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 25px 20px;
-
-    background: rgba(255, 255, 255, 0.06);
-
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-
-/* NOMBRE DE LA EMPRESA */
-
-.menu-header h5 {
-    margin: 0 0 5px 0;
-
-    font-size: 20px;
-    font-weight: 700;
-
-    color: #ffffff;
-}
-
-
-/* SUBTÍTULO */
-
-.company-subtitle {
-    font-size: 13px;
-    color: #cbdcf5;
-
-    letter-spacing: 0.4px;
-}
-
-
-/* BOTÓN CERRAR */
-
-.menu-close {
-    border: none;
-    background: transparent;
-
-    color: #ffffff;
-
-    font-size: 30px;
-    line-height: 1;
-
-    cursor: pointer;
-
-    padding: 0 5px;
-
-    opacity: 0.9;
-}
-
-.menu-close:hover {
-    opacity: 1;
-}
-
-
-/* CONTENEDOR DE OPCIONES */
-
-.menu-container {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 8px;
-
-    padding: 20px 15px;
-}
-
-
-/* ENLACES */
-
-.menu-link {
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    padding: 14px 16px;
-
-    color: #eaf2ff;
-
-    text-decoration: none;
-
-    font-size: 15px;
-
-    font-weight: 500;
-
-    border-radius: 10px;
-
-    border: 1px solid transparent;
-
-    transition: all 0.25s ease;
-}
-
-
-/* ICONOS */
-
-.menu-link span:first-child {
-    width: 24px;
-
-    text-align: center;
-
-    font-size: 19px;
-}
-
-
-/* HOVER */
-
-.menu-link:hover {
-    background: rgba(255, 255, 255, 0.14);
-
-    color: #ffffff;
-
-    border-color: rgba(255, 255, 255, 0.12);
-
-    transform: translateX(4px);
-}
-
-
-/* OVERLAY */
-
-.menu-overlay {
-    position: fixed;
-
-    inset: 0;
-
-    background: rgba(0, 0, 0, 0.35);
-
-    z-index: 1900;
-
-    opacity: 0;
-
+    background: var(--navy);
+    color: #fff;
+    box-shadow: 12px 0 35px rgba(0, 0, 0, .16);
+    transform: translateX(-105%);
     visibility: hidden;
-
-    transition: all 0.3s ease;
+    transition: transform .28s ease, visibility .28s ease;
 }
 
-
-/* OVERLAY ACTIVO */
-
-.menu-overlay.active {
-    opacity: 1;
-
+.side-menu.open,
+.side-menu.active,
+.side-menu.activo {
+    transform: translateX(0);
     visibility: visible;
 }
 
+.menu-content {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
-/* CELULARES */
+.menu-header {
+    min-height: 94px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 22px 20px;
+    background: var(--navy-light);
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
 
-@media (max-width: 480px) {
+.menu-header h5 {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: .1px;
+}
+
+.company-subtitle {
+    margin-top: 5px;
+    color: #c7d7ed;
+    font-size: 11px;
+}
+
+.menu-close {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    transition: background .2s ease;
+}
+
+.menu-close:hover {
+    background: rgba(255, 255, 255, .18);
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 18px 12px;
+}
+
+.menu-link {
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 11px 14px;
+    border-radius: 11px;
+    color: #e3ebf7;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+
+.menu-link > span:first-child {
+    width: 22px;
+    flex: 0 0 22px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.menu-link:hover {
+    background: rgba(255, 255, 255, .09);
+    color: #fff;
+    transform: translateX(2px);
+}
+
+.menu-link.active,
+.menu-link.activo,
+.menu-link[aria-current="page"] {
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, .12);
+}
+
+.menu-overlay {
+    position: fixed;
+    z-index: 1250;
+    inset: 0;
+    display: block;
+    background: rgba(8, 20, 38, .48);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .25s ease, visibility .25s ease;
+}
+
+.menu-overlay.open,
+.menu-overlay.active,
+.menu-overlay.activo,
+.menu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* =========================
+   CONTENIDO Y ESTADÍSTICAS
+   ========================= */
+
+.monitor-container {
+    width: min(100%, 1600px);
+    margin: 0 auto;
+    padding: 98px 30px 35px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 23px;
+}
+
+.stat-card {
+    min-width: 0;
+    min-height: 112px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 21px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(12, 44, 82, .11);
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    background: #eaf1fc;
+    color: var(--blue);
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.stat-card:nth-child(2) .stat-icon {
+    background: var(--yellow-bg);
+    color: var(--yellow-text);
+}
+
+.stat-card:nth-child(3) .stat-icon {
+    background: var(--green-bg);
+    color: var(--green-text);
+}
+
+.stat-card:nth-child(4) .stat-icon {
+    background: #edf0f5;
+    color: var(--navy);
+}
+
+.stat-title {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.stat-card strong {
+    display: block;
+    color: var(--navy);
+    font-size: 27px;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.stat-card small {
+    display: block;
+    margin-top: 4px;
+    color: #8992a2;
+    font-size: 11px;
+}
+
+/* =========================
+   MAPA Y LISTA DE ENVÍOS
+   ========================= */
+
+.monitor-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(360px, .8fr);
+    align-items: start;
+    gap: 22px;
+}
+
+.map-panel,
+.fleet-panel {
+    min-width: 0;
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.panel-header,
+.fleet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 21px 22px;
+    border-bottom: 1px solid var(--border);
+}
+
+.panel-header h2,
+.fleet-header h2 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -.2px;
+}
+
+.panel-header p,
+.fleet-header p {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.btn-secondary {
+    flex: 0 0 auto;
+    padding: 9px 13px;
+    border: 1px solid #d7e0ed;
+    border-radius: 9px;
+    background: #f5f8fd;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 700;
+    transition: background .2s ease, border-color .2s ease;
+}
+
+.btn-secondary:hover {
+    background: #eaf1fc;
+    border-color: #b9cbe5;
+}
+
+#map {
+    width: 100%;
+    height: 520px;
+    min-height: 350px;
+    background: #e8edf4;
+    z-index: 1;
+}
+
+.fleet-header {
+    padding-bottom: 17px;
+}
+
+#vehicleCount {
+    min-width: 35px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    border-radius: 10px;
+    background: #eaf1fc;
+    color: var(--blue-dark);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* Filtros */
+
+.tabs {
+    display: flex;
+    gap: 5px;
+    padding: 13px 15px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: thin;
+}
+
+.tab {
+    flex: 0 0 auto;
+    padding: 9px 12px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background .2s ease, color .2s ease;
+}
+
+.tab:hover {
+    background: #f1f5fb;
+    color: var(--navy);
+}
+
+.tab.active,
+.tab.activo,
+.tab[aria-selected="true"] {
+    background: var(--blue);
+    color: #fff;
+}
+
+/* Tarjetas de envíos */
+
+#vehicleList {
+    max-height: 650px;
+    overflow-y: auto;
+    padding: 14px;
+}
+
+.vehicle-card {
+    margin-bottom: 12px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.vehicle-card:last-child {
+    margin-bottom: 0;
+}
+
+.vehicle-card:hover {
+    border-color: #c9d7eb;
+    box-shadow: 0 6px 18px rgba(12, 44, 82, .07);
+    transform: translateY(-1px);
+}
+
+.vehicle-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 13px;
+}
+
+.vehicle-code {
+    display: inline-block;
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .2px;
+    overflow-wrap: anywhere;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: #edf0f5;
+    color: #596273;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.status-en-ruta {
+    background: #e5efff;
+    color: #245db6;
+}
+
+.status-pendiente {
+    background: var(--yellow-bg);
+    color: var(--yellow-text);
+}
+
+.status-entregado {
+    background: var(--green-bg);
+    color: var(--green-text);
+}
+
+.status-cancelado {
+    background: var(--red-bg);
+    color: var(--red-text);
+}
+
+.vehicle-info {
+    display: grid;
+    gap: 0;
+}
+
+.info-row {
+    display: grid;
+    grid-template-columns: minmax(82px, .7fr) minmax(0, 1.3fr);
+    gap: 10px;
+    padding: 8px 0;
+    border-top: 1px solid #f0f2f6;
+}
+
+.info-row span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.info-row strong {
+    color: #303949;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 13px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f2f6;
+}
+
+.locate-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 13px;
+    border: 0;
+    border-radius: 9px;
+    background: var(--blue);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.locate-btn:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+}
+
+.empty-message {
+    display: none;
+    padding: 35px 20px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.empty-message.visible {
+    display: block;
+}
+
+.empty-message h3 {
+    margin: 0 0 7px;
+    color: var(--navy);
+    font-size: 16px;
+}
+
+.empty-message p {
+    margin: 0;
+    font-size: 12px;
+}
+
+/* Leaflet */
+
+.leaflet-container {
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.leaflet-control-zoom a {
+    color: var(--navy) !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    box-shadow: 0 5px 20px rgba(12, 44, 82, .15);
+}
+
+/* =========================
+   DISEÑO RESPONSIVE
+   ========================= */
+
+@media (max-width: 1200px) {
+    .monitor-container {
+        padding-right: 22px;
+        padding-left: 22px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .monitor-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #map {
+        height: 430px;
+    }
+
+    #vehicleList {
+        max-height: 560px;
+    }
+}
+
+@media (max-width: 650px) {
+    .topbar {
+        height: 64px;
+        padding: 0 14px;
+    }
+
+    .topbar-left {
+        gap: 11px;
+    }
+
+    .menu-button,
+    .notification-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 11px;
+    }
+
+    .brand strong {
+        font-size: 16px;
+    }
+
+    .brand span {
+        font-size: 11px;
+    }
+
+    .monitor-container {
+        padding: 82px 12px 24px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .stat-card {
+        min-height: 102px;
+        gap: 10px;
+        padding: 13px 11px;
+        border-radius: 13px;
+    }
+
+    .stat-icon {
+        width: 39px;
+        height: 39px;
+        flex-basis: 39px;
+        border-radius: 11px;
+        font-size: 18px;
+    }
+
+    .stat-title {
+        font-size: 10px;
+    }
+
+    .stat-card strong {
+        font-size: 22px;
+    }
+
+    .stat-card small {
+        font-size: 10px;
+    }
+
+    .monitor-grid {
+        gap: 14px;
+    }
+
+    .panel-header,
+    .fleet-header {
+        padding: 16px;
+    }
+
+    .panel-header {
+        align-items: flex-start;
+    }
+
+    .panel-header h2,
+    .fleet-header h2 {
+        font-size: 15px;
+    }
+
+    .panel-header p {
+        max-width: 210px;
+        font-size: 11px;
+    }
+
+    .btn-secondary {
+        padding: 8px 9px;
+        font-size: 10px;
+    }
+
+    #map {
+        height: 340px;
+        min-height: 300px;
+    }
+
+    .tabs {
+        padding: 10px;
+    }
+
+    .tab {
+        padding: 8px 10px;
+        font-size: 10px;
+    }
+
+    #vehicleList {
+        padding: 10px;
+        max-height: none;
+    }
+
+    .vehicle-card {
+        padding: 13px;
+    }
+
+    .info-row {
+        grid-template-columns: 85px minmax(0, 1fr);
+    }
 
     .side-menu {
         width: 260px;
-        left: -280px;
     }
+}
 
-    .side-menu.active {
-        left: 0;
-    }
-
-    .menu-header {
-        padding: 20px 15px;
-    }
-
-    .menu-link {
-        padding: 12px;
+@media (max-width: 380px) {
+    .brand strong {
         font-size: 14px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        min-height: 88px;
+    }
+
+    .panel-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-secondary {
+        align-self: flex-start;
     }
 }

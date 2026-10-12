@@ -349,34 +349,32 @@ foreach ($envios as $envio) {
 
         <div class="menu-container">
 
-            <a href="admin_usuarios.php" class="menu-link">
-                <span>📍</span>
-                <span>Usuario</span>
-            </a>
-
-            <a href="clientes.php" class="menu-link">
-                <span>📦</span>
-                <span>Clientes</span>
-            </a>
-
-            <a href="empleados.php" class="menu-link">
-                <span>❓</span>
-                <span>Empleado</span>
-            </a>
+              <a href="admin.php" class="menu-link active">
+            <span>🏠</span><span>Inicio</span>
+        </a>
     
-            <a href="incidencia.php" class="menu-link">
-                <span>👤</span>
-                <span>Incidencia</span>
-            </a>
-             <a href="reporte.php" class="menu-link">
-                <span>👤</span>
-                <span>Reporte</span>
-            </a>
-
-            <a href="logout.php" class="menu-link">
-                <span>↪</span>
-                <span>Cerrar sesión</span>
-            </a>
+        <a href="admin_usuarios.php" class="menu-link">
+            <span>👤</span><span>Usuarios</span>
+        </a>
+        <a href="clientes.php" class="menu-link">
+            <span>👥</span><span>Clientes</span>
+        </a>
+        <a href="empleados.php" class="menu-link">
+            <span>🧑‍💼</span><span>Empleados</span>
+        </a>
+        
+        <a href="monitoreo.php" class="menu-link">
+            <span>📍</span><span>Monitoreo de envíos</span>
+        </a>
+        <a href="incidencia.php" class="menu-link">
+            <span>⚠️</span><span>Incidencias</span>
+        </a>
+        <a href="reporte.php" class="menu-link">
+            <span>📊</span><span>Reportes</span>
+        </a>
+        <a href="logout.php" class="menu-link">
+            <span>↪</span><span>Cerrar sesión</span>
+        </a>
 
         </div>
 

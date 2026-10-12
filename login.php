@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -29,21 +30,21 @@ if ($resultado->num_rows === 1) {
 
     $usuarioBD = $resultado->fetch_assoc();
 
-   
     if ($password === $usuarioBD["password"]) {
 
-        
         $_SESSION["id"] = $usuarioBD["id"];
         $_SESSION["nombre"] = $usuarioBD["nombre"];
         $_SESSION["usuario"] = $usuarioBD["usuario"];
         $_SESSION["rol"] = $usuarioBD["rol"];
-
-        
         $_SESSION["repartidor_id"] = $usuarioBD["repartidor_id"];
 
-       
+        // Redirigir según el rol guardado en la base de datos
+        if ($usuarioBD["rol"] === "Administrador") {
 
-        if ($usuarioBD["rol"] === "Supervisor") {
+            header("Location: admin.php");
+            exit;
+
+        } elseif ($usuarioBD["rol"] === "Supervisor") {
 
             header("Location: Supervisor.php");
             exit;
@@ -55,12 +56,10 @@ if ($resultado->num_rows === 1) {
 
         } elseif ($usuarioBD["rol"] === "Repartidor") {
 
-          
             if (empty($usuarioBD["repartidor_id"])) {
                 die("Este usuario no tiene un repartidor asociado.");
             }
 
-            // Entrar a la interfaz de paquetes
             header("Location: paquetes.php");
             exit;
 
@@ -86,4 +85,3 @@ $stmt->close();
 $conexion->close();
 
 ?>
-

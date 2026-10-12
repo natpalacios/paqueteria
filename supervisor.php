@@ -42,7 +42,7 @@ require_once "config.php";
 
     <main>
 
-        <?php include "monitoreo.php"; ?>
+        <?php include "incidencia.php"; ?>
 
     </main>
 

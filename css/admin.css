@@ -1,0 +1,361 @@
+
+:root {
+    --navy: #0c2c52;
+    --navy-light: #12386a;
+    --blue: #1f5fbf;
+    --blue-dark: #1a4fa0;
+    --bg: #f3f5f9;
+    --card: #ffffff;
+    --text: #1f2430;
+    --muted: #6b7280;
+    --border: #e6e8ee;
+    --green-bg: #e3f7ea;
+    --green-text: #1a9c56;
+    --red-bg: #fde8e6;
+    --red-text: #e0503c;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* ---------- Botón hamburguesa ---------- */
+.menu-btn {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 1001;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    background: var(--navy);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px #0002;
+    transition: background .2s;
+}
+
+.menu-btn:hover {
+    background: var(--blue);
+}
+
+/* ---------- Fondo del menú ---------- */
+.menu-fondo {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, .35);
+    z-index: 1002;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+}
+
+.menu-fondo.activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ---------- Menú lateral ---------- */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    padding: 0;
+    background: var(--navy);
+    color: #fff;
+    z-index: 1003;
+    transform: translateX(-105%);
+    transition: transform .3s ease;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, .15);
+    overflow-y: auto;
+}
+
+.side-menu.activo {
+    transform: translateX(0);
+}
+
+.menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 22px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, .15);
+}
+
+.menu-header h3 {
+    margin: 0 0 7px;
+    color: #fff;
+    font-size: 18px;
+}
+
+.menu-header p {
+    margin: 0;
+    color: #dbeafe;
+    font-size: 12px;
+}
+
+.menu-close {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px 12px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    border-radius: 8px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background .2s;
+}
+
+.menu-link span:first-child {
+    width: 25px;
+    text-align: center;
+}
+
+.menu-link:hover,
+.menu-link.active {
+    background: var(--blue);
+    color: #fff;
+}
+
+/* ---------- Contenido principal ---------- */
+.contenido {
+    width: 100%;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 72px 32px 32px;
+}
+
+/* ---------- Encabezado ---------- */
+.page-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 26px;
+    padding-left: 42px;
+}
+
+.subtitulo {
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.page-head h1 {
+    margin: 8px 0;
+    color: var(--navy);
+    font-size: clamp(24px, 3vw, 32px);
+}
+
+.page-head p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ---------- Tarjeta de bienvenida ---------- */
+.bienvenida {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 30px;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: linear-gradient(120deg, var(--navy), var(--blue));
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(12, 44, 82, .12);
+}
+
+.bienvenida h2 {
+    margin: 0 0 12px;
+    font-size: 23px;
+    color: #fff;
+}
+
+.bienvenida p {
+    margin: 0;
+    max-width: 650px;
+    color: #e5edfb;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.icono-bienvenida {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .14);
+    font-size: 42px;
+}
+
+/* ---------- Título de módulos ---------- */
+.titulo-modulos {
+    margin: 0 0 18px;
+    font-size: 20px;
+    color: var(--navy);
+}
+
+/* ---------- Tarjetas de módulos ---------- */
+.modulos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.modulo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 205px;
+    padding: 23px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 3px 12px rgba(12, 44, 82, .04);
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+
+.modulo:hover {
+    transform: translateY(-4px);
+    border-color: #c5d6f2;
+    box-shadow: 0 10px 25px rgba(12, 44, 82, .09);
+}
+
+.modulo-icono {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 14px;
+    border-radius: 11px;
+    background: #e7edfb;
+    color: var(--blue);
+    font-size: 24px;
+}
+
+.modulo h3 {
+    margin: 0 0 9px;
+    color: var(--navy);
+    font-size: 17px;
+}
+
+.modulo p {
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.ver-modulo {
+    margin-top: auto;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.modulo:hover .ver-modulo {
+    color: var(--blue-dark);
+}
+
+/* ---------- Accesibilidad ---------- */
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #93baf4;
+    outline-offset: 3px;
+}
+
+/* ---------- Adaptación a tabletas ---------- */
+@media (max-width: 900px) {
+    .contenido {
+        padding: 72px 22px 24px;
+    }
+
+    .modulos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .bienvenida {
+        padding: 25px;
+    }
+}
+
+/* ---------- Adaptación a celulares ---------- */
+@media (max-width: 600px) {
+    .contenido {
+        padding: 76px 16px 22px;
+    }
+
+    .page-head {
+        padding-left: 48px;
+        margin-bottom: 22px;
+    }
+
+    .page-head h1 {
+        font-size: 24px;
+    }
+
+    .bienvenida {
+        padding: 21px;
+        gap: 12px;
+    }
+
+    .bienvenida h2 {
+        font-size: 19px;
+    }
+
+    .icono-bienvenida {
+        width: 52px;
+        height: 52px;
+        font-size: 28px;
+    }
+
+    .modulos {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .modulo {
+        min-height: 185px;
+        padding: 20px;
+    }
+}
