@@ -1994,13 +1994,15 @@ foreach ($envios as $e) {
 
 
 
-                            <a
-                                    href="n/index.html?id=<?= (int)$envio['id'] ?>"
-                                    class="btn btn-success btn-sm"
-                                >
-                                    <i class="bi bi-receipt"></i>
-                                    Comprobante
-                                </a>
+                            
+                                <a
+                                  href="n/index.php?codigo=<?= urlencode($envio['codigo']) ?>"
+                                  class="btn btn-success btn-sm"
+                                     >
+                                   <i class="bi bi-receipt"></i>
+                                     Comprobante
+                              </a>
+
 
                             </div>
 

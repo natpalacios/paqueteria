@@ -942,3 +942,113 @@ a {
         align-self: flex-start;
     }
 }
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    max-width: 85vw;
+    height: 100vh;
+    background: #063b70;
+    color: #fff;
+    z-index: 1001;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    visibility: hidden;
+}
+
+.side-menu.open {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 8px;
+    background: #063b70;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.menu-button span {
+    display: block;
+    width: 21px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+}
+
+.menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.menu-header h5 {
+    margin: 0 0 5px;
+    color: #fff;
+}
+
+.company-subtitle {
+    color: #d6e5f5;
+    font-size: 12px;
+}
+
+.menu-container {
+    padding: 12px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 5px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background 0.2s ease;
+}
+
+.menu-link:hover,
+.menu-link.active {
+    background: #0879df;
+    color: #fff;
+}
+
+.menu-close {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+body.menu-abierto {
+    overflow: hidden;
+}
